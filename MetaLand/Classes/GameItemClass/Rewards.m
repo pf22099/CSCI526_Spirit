@@ -116,27 +116,27 @@
 +(CCSprite*)threeStarsInit {
     CCSprite *sprite = [CCSprite node];
     
-    CCSprite *spr0 = [Enemies laserDiagonalInit:0];
-    CCSprite *spr1 = [Enemies laserHorizontalInit];
-    CCSprite *spr2 = [Enemies laserDiagonalInit:1];
+    //CCSprite *spr0 = [Enemies laserDiagonalInit:0];
+    //CCSprite *spr1 = [Enemies laserHorizontalInit];
+    //CCSprite *spr2 = [Enemies laserDiagonalInit:1];
     CCSprite *star0 = [Rewards starInit];
     CCSprite *star1 = [Rewards starInit];
     CCSprite *star2 = [Rewards starInit];
     
-    spr0.position = ccp(0, 0);
-    spr1.position = ccp(spr0.contentSize.width + 50, 10);
-    spr2.position = ccp(spr1.position.x + spr1.contentSize.width + 50 + spr2.contentSize.width, 0);
-    star0.position = ccp(spr0.position.x + spr0.contentSize.width - star2.contentSize.width, 0);
-    star1.position = ccp(spr1.position.x + spr1.contentSize.width/2 - star1.contentSize.width/2, 40);
-    star2.position = ccp(spr2.position.x - spr2.contentSize.width, 0);
-    [sprite addChild:spr0];
-    [sprite addChild:spr1];
-    [sprite addChild:spr2];
+    star0.position = ccp(0, 0);
+    star1.position = ccp(star0.contentSize.width + 50, 10);
+    star2.position = ccp(star1.position.x + star1.contentSize.width + 50 + star2.contentSize.width, 0);
+    //star0.position = ccp(spr0.position.x + spr0.contentSize.width - star2.contentSize.width, 0);
+    //star1.position = ccp(spr1.position.x + spr1.contentSize.width/2 - star1.contentSize.width/2, 40);
+    //star2.position = ccp(spr2.position.x - spr2.contentSize.width, 0);
+    //[sprite addChild:spr0];
+    //[sprite addChild:spr1];
+    //[sprite addChild:spr2];
     [sprite addChild:star0];
     [sprite addChild:star1];
     [sprite addChild:star2];
     
-    sprite.contentSize = CGSizeMake(spr2.position.x, spr2.contentSize.height);
+    //sprite.contentSize = CGSizeMake(star2.position.x, star2.contentSize.height);
     sprite.anchorPoint = ccp(0, 0);
     sprite.name = @"threeStars";
     return sprite;

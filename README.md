@@ -1,10 +1,19 @@
-Metaland_Weiwei
-===============
-A summer course project.
+# README #
 
-This side-scrolling mobile game is mainly developed by a team of 3.
+For this week, we have a few objectives. Read on.
 
-Still some bugs to be fixed. This version is playable.
+### What do we have to do? ###
 
-Video link:
-https://www.youtube.com/watch?v=XpMBRV8yWqg
+* try this new edition
+* try to modify some parts
+
+
+### What do we have to consider for the next iteration? ###
+
+* come up with a basic demo, e.g. a endlessly running guy
+
+### Contribution guidelines ###
+
+* Pull from the latest version as often as possible
+* Commit locally until you have a working copy
+* Push to the  repository

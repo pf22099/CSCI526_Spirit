@@ -2,8 +2,8 @@
 //  Background.m
 //  MetaLand
 //
-//  Created by Xiangmin Liang 02/24/2015.
-//  Copyright (c) 2015 Spirit Team. All rights reserved.
+//  Created by yuwen lian on 6/16/14.
+//  Copyright (c) 2014 MetaLand Team. All rights reserved.
 //
 
 #import "Background.h"
@@ -17,10 +17,6 @@
 @synthesize _background1;
 @synthesize _background2;
 @synthesize _topBackground;
-@synthesize positionRecoder;
-@synthesize groundLengthRecoder;
-@synthesize _flagGround;
-@synthesize _currentBackground;
 
 // -----------------------------------------------------------------------
 #pragma mark - Initialize the background
@@ -35,9 +31,8 @@
     _screenHeight = [[UIScreen mainScreen] bounds].size.width;
     
     // Create the sprites
-    
-    [self createBackgroundSprite];
     [self createGroundSprite];
+    [self createBackgroundSprite];
     [self createTopBackgroundSprite];
         
     return self;
@@ -53,26 +48,23 @@
     _ground.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _ground.contentSize} cornerRadius:0];
     _ground.physicsBody.type = CCPhysicsBodyTypeStatic;
     _ground.physicsBody.collisionType = @"groundCollision";
-    
-    //_flagGround = _ground;
-    groundLengthRecoder = [_ground boundingBox].size.width;
-    positionRecoder = 0;
+    _ground.physicsBody.friction=0.0f;
+    _topBackground.opacity = 1;
     
     [self addChild:_ground];
 }
 
 -(void)createBackgroundSprite {
-    _background1 = [CCSprite spriteWithImageNamed:@"background2.jpg"];
+    _background1 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree.png"];
     _background1.anchorPoint = CGPointZero;
     _background1.position = CGPointZero;
-    _currentBackground = _background1;
     /*
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"Bg1" fontName:@"Verdana-Bold" fontSize:15];
     label.positionType = CCPositionTypeNormalized;
     label.position = ccp(0.5f, 0.5f);
     [_background1 addChild:label];
     */
-    _background2 = [CCSprite spriteWithImageNamed:@"background2.jpg"];
+    _background2 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree.png"];
     _background2.anchorPoint = CGPointZero;
     _background2.position = ccp(_background1.contentSize.width-1, 0);
     /*
@@ -109,7 +101,5 @@
     
     return spr;
 }
-
-
 
 @end
