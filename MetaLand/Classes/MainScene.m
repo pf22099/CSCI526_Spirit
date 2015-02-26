@@ -81,7 +81,6 @@
     //Set up global variables
     _scrollSpeed = 10;
     
-    
 
 	return self;
 }
@@ -94,7 +93,7 @@
     _physicsWorld = [CCPhysicsNode node];
     
     _physicsWorld.gravity = ccp(0, -500);
-    _physicsWorld.debugDraw = NO;
+    _physicsWorld.debugDraw = YES;
     _physicsWorld.collisionDelegate = self;
     [self addChild:_physicsWorld];
 }
@@ -141,11 +140,24 @@
     [self backgroundScroll : _scrollSpeed];
 }
 -(void)backgroundScroll : (float)delta {
+    //Move background and all attached staff
     for (float i = 0.0f; i<delta; i+=.1f) {
         _background._background1.position = ccp(_background._background1.position.x - .1, _background._background1.position.y);
         _background._background2.position = ccp(_background._background2.position.x - .1, _background._background2.position.y);
         _background._ground.position = ccp(_background._ground.position.x - .1, _background._ground.position.y);
     }
+    
+    //If _flagGround is a little far away from the right edge, generate a new ground
+    //CCLOG(@"!!!%f",flag.position.x);
+//    if (counter >= 200) {
+//        //CCLOG(@"!!!!!!%f <> %f",_background._flagGround.position.x + [_background._flagGround boundingBox].size.width - 1,self.contentSize.width);
+//        if (_background._background1.position.x <= 0) {
+//            [self generateGround:_background._background2];
+//        }
+//        if (_background._background2.position.x <= 0) {
+//            [self generateGround:_background._background1];
+//        }
+//    }
     
     if (_background._background1.position.x <= -_background._background1.contentSize.width+1) {
         
@@ -159,7 +171,7 @@
 //        }
 //        _sceneCounter++;
 //        
-//        [self generateStaticObstacles:_background._background1];
+        [self generateGround:_background._background1];
         
     }
     else if (_background._background2.position.x <= -_background._background2.contentSize.width+1) {
@@ -175,8 +187,27 @@
 //        }
 //        _sceneCounter++;
 //         */
-//        [self generateStaticObstacles:_background._background2];
+        [self generateGround:_background._background2];
     }
+}
+
+//Generate a new ground
+-(void)generateGround : (CCSprite*)bg {
+    float counter = 0;
+    while (counter < bg.contentSize.width - 1) {
+        CCSprite *spr = [Background generateFlyingGround];
+        
+        spr.scaleY = 0.5;
+        int x = counter;
+        int minY = bg.contentSize.height * 0.1;
+        int maxY = bg.contentSize.height * 0.4;
+        int randomY = arc4random()%(maxY-minY)+minY;
+        spr.position = ccp(x,randomY);
+        [bg addChild:spr];
+        counter += [spr boundingBox].size.width + 20;
+        CCLOG(@"++++++++++++++%lu",(unsigned long)bg.children.count);
+    }
+    //CCLOG(@"++++++++++++++");
 }
 
 //Andy.

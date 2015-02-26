@@ -17,6 +17,10 @@
 @synthesize _background1;
 @synthesize _background2;
 @synthesize _topBackground;
+@synthesize positionRecoder;
+@synthesize groundLengthRecoder;
+@synthesize _flagGround;
+@synthesize _currentBackground;
 
 // -----------------------------------------------------------------------
 #pragma mark - Initialize the background
@@ -50,6 +54,10 @@
     _ground.physicsBody.type = CCPhysicsBodyTypeStatic;
     _ground.physicsBody.collisionType = @"groundCollision";
     
+    //_flagGround = _ground;
+    groundLengthRecoder = [_ground boundingBox].size.width;
+    positionRecoder = 0;
+    
     [self addChild:_ground];
 }
 
@@ -57,6 +65,7 @@
     _background1 = [CCSprite spriteWithImageNamed:@"background2.jpg"];
     _background1.anchorPoint = CGPointZero;
     _background1.position = CGPointZero;
+    _currentBackground = _background1;
     /*
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"Bg1" fontName:@"Verdana-Bold" fontSize:15];
     label.positionType = CCPositionTypeNormalized;
@@ -87,5 +96,20 @@
     
     [self addChild:_topBackground];
 }
+
++(CCSprite*)generateFlyingGround {
+    CCSprite *spr;
+    spr = [CCSprite spriteWithImageNamed:@"fly_ground.png"];
+    spr.anchorPoint = ccp(0, 0);
+    [spr setPhysicsBody:[CCPhysicsBody bodyWithRect:spr.boundingBox cornerRadius:0]];
+    spr.physicsBody.type = CCPhysicsBodyTypeStatic;
+    
+    spr.physicsBody.collisionGroup = @"gameSceneGroup";
+    spr.physicsBody.collisionType = @"groundCollision";
+    
+    return spr;
+}
+
+
 
 @end
