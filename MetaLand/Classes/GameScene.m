@@ -115,7 +115,8 @@
     //Create the physics world
     [self createPhysicsWorld];
     [self initialScrollingBackground];
-    [self generateGround:_background._background2];
+    [self generateHorizentalGround:_background._background1];
+    [self generateRandomGround:_background._background2];
     
     // Add a robot and enemies
     [self addRobot];
@@ -201,7 +202,7 @@
     //Create physics-world
     _physicsWorld = [CCPhysicsNode node];
 
-    _physicsWorld.gravity = ccp(0, -500);
+    _physicsWorld.gravity = ccp(0, -500.0f);
     _physicsWorld.debugDraw = NO;
     _physicsWorld.collisionDelegate = self;
     [self addChild:_physicsWorld];
@@ -377,19 +378,19 @@
        // warningLine.anchorPoint = ccp(0,0);
         //warningLine.position = ccp(0,randomY+10);
         
-        warning.anchorPoint = ccp(0, 0);
-        warning.position = ccp(self.contentSize.width - warning.contentSize.width, randomY);
-        CCAction* actionFadeOut = [CCActionFadeOut actionWithDuration:.4f];
-        CCAction* actionFadeIn = [CCActionFadeIn actionWithDuration:.4f];
-        CCActionCallBlock* callBlock = [CCActionCallBlock actionWithBlock:^{
-            //warning.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"warning_missile_normal_2.png"];
-            [self performSelector:@selector(changeWarning:) withObject:warning];
-        }];
-        
+//        warning.anchorPoint = ccp(0, 0);
+//        warning.position = ccp(self.contentSize.width - warning.contentSize.width, randomY);
+//        CCAction* actionFadeOut = [CCActionFadeOut actionWithDuration:.4f];
+//        CCAction* actionFadeIn = [CCActionFadeIn actionWithDuration:.4f];
+//        CCActionCallBlock* callBlock = [CCActionCallBlock actionWithBlock:^{
+//            //warning.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"warning_missile_normal_2.png"];
+//            [self performSelector:@selector(changeWarning:) withObject:warning];
+//        }];
+    
         missile.position = ccp(self.contentSize.width + warning.contentSize.width + missile.contentSize.width, warning.position.y);
         
-        CCAction *warningDelay = [CCActionDelay actionWithDuration:.5f];
-        CCAction *warningRemove = [CCActionRemove action];
+        //CCAction *warningDelay = [CCActionDelay actionWithDuration:.5f];
+        //CCAction *warningRemove = [CCActionRemove action];
         //[warning runAction:[CCActionSequence actionWithArray:@[actionFadeOut, actionFadeIn, actionFadeOut, callBlock, actionFadeIn, warningDelay, warningRemove]]];
         //[warningLine runAction:[CCActionSequence actionWithArray:@[actionFadeOut,actionFadeIn,actionFadeOut,actionFadeIn,warningDelay,warningRemove]]];
         //[self addChild:warning z:2];
@@ -465,11 +466,6 @@
      */
     //detect if fall down
     
-    if (preY>_robot.position.y)
-    {
-        [_robot.physicsBody applyForce:ccp(0,-5.0f)];
-    }
-    preY=_robot.position.y;
     if(_robot.position.y < -10) {
         [self died];
     }
@@ -740,7 +736,7 @@
         return NO;
     }
     touches=0;
-    CGFloat x = self.contentSize.width/4;
+    CGFloat x = _robot.position.x;
     CGFloat y = _robot.position.y;
     [_robot removeFromParentAndCleanup:YES];
     [self addRobotBackToRun:x andNb:y];
@@ -946,9 +942,9 @@
             _robot.position = ccp(px, py);
             _robot.physicsBody.collisionGroup = @"robotGroup";
             _robot.physicsBody.collisionType = @"robotCollision";
-            [_robot.physicsBody applyForce:ccp(0,20.0f)];
-            [_physicsWorld addChild:_robot z:1];
             
+            [_physicsWorld addChild:_robot z:1];
+            [self schedule:@selector(applyForceWhenTouched) interval:1.0f/30.0f];
             return;
         }
         if(touches>3)
@@ -982,8 +978,8 @@
 
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     
-    if (touches==3) {
-        return;
+    if (touches>=3) {
+        [self unschedule:@selector(applyForceWhenTouched)];
     }
 }
 
@@ -1000,7 +996,7 @@
         [_robot removeFromParentAndCleanup:YES];
         
         if(!_isPortalOn) {
-            CGFloat x = self.contentSize.width/4;
+            CGFloat x = _robot.position.x;
             CGFloat y = _robot.position.y;
             
             if(_isBoostOn){
@@ -1306,7 +1302,7 @@
     _speedBeforeBoost = _scrollSpeed;
     _scrollSpeed = 50;
     ;
-    CGFloat x = self.contentSize.width/4;
+    CGFloat x = _robot.position.x;
     CGFloat y = _robot.position.y;
     
     [_robot removeFromParentAndCleanup:YES];
@@ -1412,7 +1408,7 @@
             _isBoostOn = NO;
             _scrollSpeed = _speedBeforeBoost-0.3f;
             
-            CGFloat x = self.contentSize.width/4;
+            CGFloat x = _robot.position.x;
             CGFloat y = _robot.position.y;
             [_robot removeFromParentAndCleanup:YES];
             if (_robot.position.y > _background._ground.position.y + _background._ground.contentSize.height + _robot.contentSize.height/2) {
@@ -1452,12 +1448,9 @@
 }
 
 -(void)applyForceWhenTouched {
-    _forceUpward = 1.0f + _scrollSpeed * 0.05f;
-    [_robot.physicsBody applyForce:ccp(0, _forceUpward)];
-    if (_forceUpward > 1.5f) {
-        [_robot.physicsBody applyForce:ccp(0,1.5f)];
-    }
+            [_robot.physicsBody applyForce:ccp(0,2.5f)];
 }
+
 
 // -----------------------------------------------------------------------
 #pragma mark - Scroll the ground and background
@@ -1488,7 +1481,7 @@
         [_background._background1 addChild:label];*/
 
         [self generateStaticObstacles:_background._background1];
-        [self generateGround:_background._background1];
+        [self generateRandomGround:_background._background1];
         
     }
     else if (_background._background2.position.x <= -_background._background2.contentSize.width+1) {
@@ -1510,26 +1503,54 @@
         [_background._background2 addChild:label2];
         */
         [self generateStaticObstacles:_background._background2];
-        [self generateGround:_background._background2];
+        [self generateRandomGround:_background._background2];
     }
 }
 
-//Generate a new ground
--(void)generateGround : (CCSprite*)bg {
+//Generate random Y ground
+-(void)generateRandomGround : (CCSprite*)bg {
     float counter = 0;
     while (counter < bg.contentSize.width - 1) {
         CCSprite *spr = [Background generateFlyingGround];
         
+        int lengthScaleMin = 3;
+        int lengthScaleMax = 8;
+        int distanceMin = 10;
+        int distanceMax = 100;
+        
+        float randomScale = arc4random() % (lengthScaleMax - lengthScaleMin) + lengthScaleMin;
+        float randomDistance = arc4random() % (distanceMax - distanceMin) + distanceMin;
+        
         spr.scaleY = 0.5;
-        spr.scaleX = 0.5;
+        spr.scaleX = randomScale/10.0;
+        //CCLOG(@"++++++++++++++%lu",(unsigned long)randomScale);
         int x = counter;
         int minY = bg.contentSize.height * 0.1;
         int maxY = bg.contentSize.height * 0.4;
         int randomY = arc4random()%(maxY-minY)+minY;
         spr.position = ccp(x,randomY);
+        counter += [spr boundingBox].size.width + randomDistance;
+        if(counter <= bg.contentSize.width - 1) {
+            [bg addChild:spr];
+        }
+        //CCLOG(@"++++++++++++++%lu",(unsigned long)bg.children.count);
+    }
+    //CCLOG(@"++++++++++++++");
+}
+
+//Generate horizental ground
+-(void)generateHorizentalGround : (CCSprite*)bg {
+    float counter = 0;
+    //float groundLength = [[Background generateFlyingGround] boundingBox].size.width;
+    while (counter < bg.contentSize.width - 1) {
+        CCSprite *spr = [Background generateFlyingGround];
+        
+        spr.scaleY = 0.5;
+        int x = counter;
+        spr.position = ccp(x,20);
         [bg addChild:spr];
-        counter += [spr boundingBox].size.width + 50;
-        CCLOG(@"++++++++++++++%lu",(unsigned long)bg.children.count);
+        counter += [spr boundingBox].size.width;
+        //CCLOG(@"++++++++++++++%lu",(unsigned long)bg.children.count);
     }
     //CCLOG(@"++++++++++++++");
 }
@@ -1562,7 +1583,7 @@
 //    return;
 
     //if (pb_num < 0.05f) {
-     //   [self generateOneObstacle:bg];
+        [self generateOneObstacle:bg];
    // }
     //else if (pb_num < 0.45) {
      //   [self generateTwoObstacles:bg];
@@ -1601,21 +1622,21 @@
         spr.name = @"coinGroup";
         spr.anchorPoint = ccp(0, 0);
     }
-    else if (pb_object <= 0.4f) {
+    //else if (pb_object <= 0.4f) {
         spr = [Enemies laserHorizontalInit];
-    }
-    else if (pb_object <= 0.70f) {
-        spr = [Enemies laserVerticalInit];
-    }
-    else if (pb_object <= 0.78f) {
-        spr = [Enemies laserDiagonalInit:0];
-    }
-    else if (pb_object <= 0.85f) {
-        spr = [Enemies laserDiagonalInit:1];
-    }
-    else {
-        spr = [Enemies laserRotatingInit];
-    }
+    //}
+    //else if (pb_object <= 0.70f) {
+     //   spr = [Enemies laserVerticalInit];
+    //}
+    //else if (pb_object <= 0.78f) {
+     //   spr = [Enemies laserDiagonalInit:0];
+    //}
+   // else if (pb_object <= 0.85f) {
+     //   spr = [Enemies laserDiagonalInit:1];
+   // }
+   // else {
+      //  spr = [Enemies laserRotatingInit];
+   // }
     
     return spr;
 }
@@ -1671,7 +1692,7 @@
     }
     return maxPrevX;
 }
-
+/*
 -(void)addPortal : (CCSprite*)bg : (CCSprite*)spr {
     float pb_portal = arc4random()%100/100.0f;
     if ([spr.name isEqualToString:@"coinGroup"] || spr.position.x < 0) {
@@ -1700,7 +1721,7 @@
         [bg addChild:portal];
     }
 }
-
+*/
 -(void)generateOneObstacle : (CCSprite*)bg {
     CCSprite *spr = [self generateRandomSprite];
     
@@ -1711,7 +1732,7 @@
     int randomY = [self generateRandomY:spr];
     
     spr.position = ccp(randomX, randomY);
-    [self addPortal:bg :spr];
+    //[self addPortal:bg :spr];
     [bg addChild:spr];
 }
 
@@ -1734,7 +1755,7 @@
     if (minX < maxX) {
         randomX = arc4random()%(maxX-minX)+minX;
         spr0.position = ccp(randomX, [self generateRandomY:spr0]);
-        [self addPortal:bg :spr0];
+        //[self addPortal:bg :spr0];
         [bg addChild:spr0];
     }
     // Second sprite
@@ -1751,7 +1772,7 @@
     if (minX < maxX) {
         randomX = arc4random()%(maxX-minX)+minX;
         spr1.position = ccp(randomX, [self generateRandomY:spr1]);
-        [self addPortal:bg :spr1];
+        //[self addPortal:bg :spr1];
         [bg addChild:spr1];
     }
 }
@@ -1781,7 +1802,7 @@
     if (minX < maxX) {
         randomX = arc4random()%(maxX-minX)+minX;
         spr0.position = ccp(randomX, [self generateRandomY:spr0]);
-        [self addPortal:bg :spr0];
+        //[self addPortal:bg :spr0];
         [bg addChild:spr0];
     }
     
@@ -1800,7 +1821,7 @@
     if (minX < maxX) {
         randomX = arc4random()%(maxX-minX)+minX;
         spr1.position = ccp(randomX, [self generateRandomY:spr1]);
-        [self addPortal:bg :spr1];
+        //[self addPortal:bg :spr1];
         [bg addChild:spr1];
     }
     
@@ -1819,7 +1840,7 @@
     if (minX < maxX) {
         randomX = arc4random()%(maxX-minX)+minX;
         spr2.position = ccp(randomX, [self generateRandomY:spr2]);
-        [self addPortal:bg :spr2];
+       // [self addPortal:bg :spr2];
         [bg addChild:spr2];
     }
     

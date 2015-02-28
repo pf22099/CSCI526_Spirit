@@ -31,9 +31,9 @@
     _screenHeight = [[UIScreen mainScreen] bounds].size.width;
     
     // Create the sprites
-    [self createGroundSprite];
     [self createBackgroundSprite];
     [self createTopBackgroundSprite];
+    [self createGroundSprite];
         
     return self;
 }
@@ -49,7 +49,7 @@
     _ground.physicsBody.type = CCPhysicsBodyTypeStatic;
     _ground.physicsBody.collisionType = @"groundCollision";
     _ground.physicsBody.friction=0.0f;
-    _topBackground.opacity = 1;
+    _ground.scaleX = 1.2;
     
     [self addChild:_ground];
 }
