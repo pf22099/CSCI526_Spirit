@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  */
 
-#import "CCBAnimationManager.h"
+//#import "CCBAnimationManager.h"
 
 @implementation CCBAnimationManager
 

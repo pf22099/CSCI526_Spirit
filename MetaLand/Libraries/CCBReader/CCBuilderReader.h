@@ -29,6 +29,6 @@
 #endif
 
 #import "CCBReader.h"
-#import "CCBAnimationManager.h"
+//#import "CCBAnimationManager.h"
 #import "CCAnimationManager.h"
 #import "CCBLocalizationManager.h"

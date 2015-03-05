@@ -7,119 +7,119 @@
             <key>laserHorizontal-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,68},{62,58}}</string>
+                <string>{{2,2},{50,50}}</string>
                 <key>offset</key>
-                <string>{1,-14}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{20,35},{62,58}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
             <key>laserHorizontal-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{194,66},{64,60}}</string>
+                <string>{{54,2},{50,50}}</string>
                 <key>offset</key>
-                <string>{2,-13}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{20,33},{64,60}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
             <key>laserHorizontal-3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{62,64}}</string>
+                <string>{{106,2},{50,50}}</string>
                 <key>offset</key>
-                <string>{1,-12}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{20,30},{62,64}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
             <key>laserHorizontal-4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{130,2},{64,62}}</string>
+                <string>{{2,54},{50,50}}</string>
                 <key>offset</key>
-                <string>{1,-13}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{19,32},{64,62}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
             <key>laserHorizontal-5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{194,2},{62,62}}</string>
+                <string>{{54,54},{50,50}}</string>
                 <key>offset</key>
-                <string>{2,-13}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{21,32},{62,62}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
             <key>laserHorizontal-6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{66,2},{62,64}}</string>
+                <string>{{106,54},{50,50}}</string>
                 <key>offset</key>
-                <string>{2,-12}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{21,30},{62,64}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
             <key>laserHorizontal-7.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{258,2},{62,60}}</string>
+                <string>{{2,106},{50,50}}</string>
                 <key>offset</key>
-                <string>{1,-14}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{20,34},{62,60}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
             <key>laserHorizontal-8.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{260,64},{60,60}}</string>
+                <string>{{54,106},{50,50}}</string>
                 <key>offset</key>
-                <string>{0,-14}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{20,34},{60,60}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
             <key>laserHorizontal-9.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{66,68},{62,58}}</string>
+                <string>{{106,106},{50,50}}</string>
                 <key>offset</key>
-                <string>{0,-15}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{19,36},{62,58}}</string>
+                <string>{{0,0},{50,50}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{50,50}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -129,9 +129,9 @@
             <key>realTextureFileName</key>
             <string>laserHorizontal.png</string>
             <key>size</key>
-            <string>{322,128}</string>
+            <string>{158,158}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:667030af9e57e1c99ef30e8c88e9b22f:ccbe7f82ae039efe5a562f0e8c348cb6:4810fa8c62b79178f0ff5c36bc1d9eeb$</string>
+            <string>$TexturePacker:SmartUpdate:64da238d5154f93e4fe7d29f86a188f7:3e00ee492c94edc218b94016ffe2ee8b:4810fa8c62b79178f0ff5c36bc1d9eeb$</string>
             <key>textureFileName</key>
             <string>laserHorizontal.png</string>
         </dict>

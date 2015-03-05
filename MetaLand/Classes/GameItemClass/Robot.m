@@ -251,7 +251,7 @@ CCSprite *sprite;
             [sprite setPhysicsBody:[CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, sprite.contentSize}  cornerRadius:0]];
         }
         sprite.physicsBody.friction = 0.0f;
-        sprite.physicsBody.allowsRotation = NO;
+        sprite.physicsBody.allowsRotation = false;
         sprite.physicsBody.density = 1.0/sprite.physicsBody.area;
         sprite.name = @"robot";
         
