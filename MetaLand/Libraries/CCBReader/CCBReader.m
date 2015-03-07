@@ -26,7 +26,7 @@
 #import "CCBReader.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
-//#import "CCBAnimationManager.h"
+#import "CCBAnimationManager.h"
 #import "CCAnimationManager.h"
 #import "CCBSequence.h"
 #import "CCBSequenceProperty.h"

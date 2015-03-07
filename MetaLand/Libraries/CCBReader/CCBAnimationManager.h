@@ -1,5 +1,5 @@
 /*
- * CocosBuilder: http://www.spritebuilder.org
+ * SpriteBuilder: http://www.spritebuilder.org
  *
  * Copyright (c) 2012 Zynga Inc.
  * Copyright (c) 2013 Apportable Inc.
@@ -23,12 +23,14 @@
  * THE SOFTWARE.
  */
 
-// Unless this macro is defined in Build Settings CCBReader will assume it is working with cocos2d-iphone
-#ifndef CCB_SPRITEKIT_READER
-#define CCB_SPRITEKIT_READER 0
-#endif
-
-#import "CCBReader.h"
-#import "CCBAnimationManager.h"
+#import <Foundation/Foundation.h>
+#import "cocos2d.h"
 #import "CCAnimationManager.h"
-#import "CCBLocalizationManager.h"
+
+__attribute__ ((deprecated))
+@interface CCBAnimationManager : CCAnimationManager
+{
+    
+}
+
+@end
