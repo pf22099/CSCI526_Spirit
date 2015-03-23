@@ -192,6 +192,7 @@
     [self addButtonPause];
     [self addButtonSoundControl];
     [self addButtonJump];
+    [self addButtonRush];
     [self addCoinProgressBar];
     
     [self generateStaticObstacles:_background._background2];
@@ -216,8 +217,7 @@
 
 -(void)initialScrollingBackground {
     _background = [Background node];
-    
-    _groundInitialY = 20;
+    _groundInitialY = self.contentSize.height*0.3;
     _ceilingInitialY = [_background._background1 boundingBox].size.height;
     _background._ceiling.position = ccp(0,_ceilingInitialY);
     
@@ -385,7 +385,7 @@
         missile = [Enemies missileInit:MISSILE_NORMAL];
         //[audio playEffect:@"warning.wav"];
 
-        actionMove = [CCActionMoveBy actionWithDuration:1 position:ccp(-_background._background1.contentSize.width-2*missile.contentSize.width,0)];
+        actionMove = [CCActionMoveBy actionWithDuration:4 position:ccp(-_background._background1.contentSize.width-2*missile.contentSize.width,0)];
         
         
        // warningLine.anchorPoint = ccp(0,0);
@@ -491,12 +491,16 @@
         {
             CCAction *move = [CCActionMoveBy actionWithDuration:0.3f position:ccp(15, 0)];
             [_robot runAction:move];
+            [self unschedule:@selector(applyForceWhenTouched)];
+            touches=0;
         }
     
         if(_robot.position.x > self.contentSize.width/3)
         {
             CCAction *move = [CCActionMoveBy actionWithDuration:0.3f position:ccp(15, 0)];
             [_robot runAction:move];
+            [self unschedule:@selector(applyForceWhenTouched)];
+            touches=0;
         }
     }
     
@@ -1166,13 +1170,29 @@
 #pragma mark - Add Buttons
 // -----------------------------------------------------------------------
 -(void)addButtonJump {
-    CCSpriteFrame *jumpFrame = [CCSpriteFrame frameWithImageNamed:@"jump.png"];
-    CCButton *buttonJump = [CCButton buttonWithTitle:nil spriteFrame:jumpFrame];
-    buttonJump.positionType = CCPositionTypeNormalized;
-    buttonJump.position = ccp(0.15f, 0.15f); // Top Right of screen
-    buttonJump.name = @"buttonJump";
-//    [buttonJump setTarget:self selector:@selector(onJumpClicked:)];
-    [self addChild:buttonJump z:9];
+//    CCSpriteFrame *jumpFrame = [CCSpriteFrame frameWithImageNamed:@"jump.png"];
+//    CCButton *buttonJump = [CCButton buttonWithTitle:nil spriteFrame:jumpFrame];
+//    buttonJump.positionType = CCPositionTypeNormalized;
+//    buttonJump.position = ccp(0.15f, 0.15f); // Top Right of screen
+//    buttonJump.name = @"buttonJump";
+////    [buttonJump setTarget:self selector:@selector(onJumpClicked:)];
+//    [self addChild:buttonJump z:9];
+    CCSprite *button=[CCSprite spriteWithImageNamed:@"jump.png"];
+    button.positionType=CCPositionTypeNormalized;
+    button.position=ccp(0.1, 0.15);
+    button.scaleX=0.7;
+    button.scaleY=0.7;
+    [self addChild:button z: 9];
+}
+
+-(void) addButtonRush
+{
+    CCSprite *button=[CCSprite spriteWithImageNamed:@"Rush.png"];
+    button.positionType=CCPositionTypeNormalized;
+    button.position=ccp(0.9, 0.15);
+    button.scaleX=0.7;
+    button.scaleY=0.7;
+    [self addChild:button z: 9];
 }
 
 -(void)addButtonPause {
@@ -1236,9 +1256,9 @@
 // -----------------------------------------------------------------------
 #pragma mark - Button Callbacks
 // -----------------------------------------------------------------------
--(void)onJumpClicked:(id)sender {
-    [self jump];
-}
+//-(void)onJumpClicked:(id)sender {
+//    [self jump];
+//}
 
 
 -(void)onPauseClicked:(id)sender {
@@ -1384,63 +1404,63 @@
     _magnetTime = 0;
 }
 
--(void)jump
-{
-    if(_isBoostOn)
-        return;
-    if (!_isGameOver) {
-        
-        touches++;
-        if  (touches==2)
-        {
-            _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
-            [_robot.physicsBody applyForce:ccp(0,15.0f)];
-            return;
-        }
-        if (touches==3) {
-            CGFloat px = _robot.position.x;
-            CGFloat py = _robot.position.y;
-            
-            [_robot removeFromParentAndCleanup:YES];
-            _robot = [Robot createCharacter:CHARACTER_ROBOT_FLY];
-            _robot.position = ccp(px, py);
-            _robot.physicsBody.collisionGroup = @"robotGroup";
-            _robot.physicsBody.collisionType = @"robotCollision";
-            
-            [_physicsWorld addChild:_robot z:1];
-            [self schedule:@selector(applyForceWhenTouched) interval:1.0f/10.0f];
-            return;
-        }
-        if(touches>=3)
-            return;
-        
-        //        CGFloat x = self.contentSize.width/4;
-        //        CGFloat y = _robot.position.y;
-        //        if(!_isBoostOn){
-        //            [_robot removeFromParentAndCleanup:YES];
-        //            [self addRobotJump:x andNb:y];
-        //        }else{
-        //            [_robot removeFromParentAndCleanup:YES];
-        //
-        //            [self addRobotBoost:x andNb:y];
-        //        }
-        //
-        //        if(_scrollSpeed < 6) {
-        //            [_robot.physicsBody applyImpulse:ccp(0,0.05f)];
-        //        }
-        //        else {
-        //            [_robot.physicsBody applyImpulse:ccp(0,0.1f)];
-        //        }
-        [_robot.physicsBody applyForce:ccp(0,14.0f)];
-        _robot.physicsBody.velocity=CGPointZero;
-        
-    }
-    else {
-        self.userInteractionEnabled = NO;
-    }
-
-}
-
+//-(void)jump
+//{
+//    if(_isBoostOn)
+//        return;
+//    if (!_isGameOver) {
+//        
+//        touches++;
+//        if  (touches==2)
+//        {
+//            _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
+//            [_robot.physicsBody applyForce:ccp(0,15.0f)];
+//            return;
+//        }
+//        if (touches==3) {
+//            CGFloat px = _robot.position.x;
+//            CGFloat py = _robot.position.y;
+//            
+//            [_robot removeFromParentAndCleanup:YES];
+//            _robot = [Robot createCharacter:CHARACTER_ROBOT_FLY];
+//            _robot.position = ccp(px, py);
+//            _robot.physicsBody.collisionGroup = @"robotGroup";
+//            _robot.physicsBody.collisionType = @"robotCollision";
+//            
+//            [_physicsWorld addChild:_robot z:1];
+//            [self schedule:@selector(applyForceWhenTouched) interval:1.0f/10.0f];
+//            return;
+//        }
+//        if(touches>=3)
+//            return;
+//        
+//        //        CGFloat x = self.contentSize.width/4;
+//        //        CGFloat y = _robot.position.y;
+//        //        if(!_isBoostOn){
+//        //            [_robot removeFromParentAndCleanup:YES];
+//        //            [self addRobotJump:x andNb:y];
+//        //        }else{
+//        //            [_robot removeFromParentAndCleanup:YES];
+//        //
+//        //            [self addRobotBoost:x andNb:y];
+//        //        }
+//        //
+//        //        if(_scrollSpeed < 6) {
+//        //            [_robot.physicsBody applyImpulse:ccp(0,0.05f)];
+//        //        }
+//        //        else {
+//        //            [_robot.physicsBody applyImpulse:ccp(0,0.1f)];
+//        //        }
+//        [_robot.physicsBody applyForce:ccp(0,14.0f)];
+//        _robot.physicsBody.velocity=CGPointZero;
+//        
+//    }
+//    else {
+//        self.userInteractionEnabled = NO;
+//    }
+//
+//}
+//
 // -----------------------------------------------------------------------
 #pragma mark - Random number generators
 // -----------------------------------------------------------------------
@@ -1577,6 +1597,7 @@
 #pragma mark - Scroll the ground and background
 // -----------------------------------------------------------------------
 -(void)backgroundScroll : (float)delta {
+    
     for (float i = 0.0f; i<delta; i+=.1f) {
         _background._background1.position = ccp(_background._background1.position.x - .1, _background._background1.position.y);
         _background._background2.position = ccp(_background._background2.position.x - .1, _background._background2.position.y);
@@ -1591,6 +1612,7 @@
 
         if (_sceneCounter==_record/100)
         {
+            CCLOG(@"++++++++++++");
             [self addRecordSign:_background._background1];
         }
         _sceneCounter++;
@@ -1648,7 +1670,7 @@
         //CCLOG(@"++++++++++++++%lu",(unsigned long)randomScale);
         int x = counter;
         int minY = bg.contentSize.height * 0.1;
-        int maxY = bg.contentSize.height * 0.4;
+        int maxY = bg.contentSize.height * 0.5;
         int randomY = arc4random()%(maxY-minY)+minY;
         spr.position = ccp(x,randomY);
         counter += [spr boundingBox].size.width + randomDistance;
@@ -1669,7 +1691,7 @@
         
         spr.scaleY = 0.5;
         int x = counter;
-        spr.position = ccp(x,20);
+        spr.position = ccp(x,bg.contentSize.height * 0.3);
         [bg addChild:spr];
         counter += [spr boundingBox].size.width;
         //CCLOG(@"++++++++++++++%lu",(unsigned long)bg.children.count);
