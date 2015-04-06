@@ -236,6 +236,7 @@
 		C9274C851AAAAE1A00F11FC4 /* player_2.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9274C831AAAAE1A00F11FC4 /* player_2.plist */; };
 		C9274C861AAAAE1A00F11FC4 /* player_2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9274C841AAAAE1A00F11FC4 /* player_2.png */; };
 		C9274C881AAAC08900F11FC4 /* Rush.png in Resources */ = {isa = PBXBuildFile; fileRef = C9274C871AAAC08900F11FC4 /* Rush.png */; };
+		C9D1D27F1ACA0D6400AFC947 /* main_bg_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = C9D1D27E1ACA0D6400AFC947 /* main_bg_copy.png */; };
 		E3280BBF198459490076DBC2 /* player_4.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3280BBD198459490076DBC2 /* player_4.plist */; };
 		E3280BC0198459490076DBC2 /* player_4.png in Resources */ = {isa = PBXBuildFile; fileRef = E3280BBE198459490076DBC2 /* player_4.png */; };
 		E34D46181988473300AAF73E /* bggameover.png in Resources */ = {isa = PBXBuildFile; fileRef = E34D46171988473300AAF73E /* bggameover.png */; };
@@ -384,7 +385,7 @@
 		8C595BF11957D25200D44F88 /* StoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreScene.m; path = Classes/StoreScene.m; sourceTree = "<group>"; };
 		8C71ABAD197EFE1A0062C367 /* Rewards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rewards.h; sourceTree = "<group>"; };
 		8C71ABAE197EFE1A0062C367 /* Rewards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rewards.m; sourceTree = "<group>"; };
-		8CE84D1F1957D17200716C96 /* MetaLand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetaLand.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CE84D1F1957D17200716C96 /* Sprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CE84D221957D17200716C96 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8CE84D241957D17200716C96 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		8CE84D261957D17200716C96 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -766,6 +767,7 @@
 		C9274C831AAAAE1A00F11FC4 /* player_2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = player_2.plist; path = Resources/player_2.plist; sourceTree = "<group>"; };
 		C9274C841AAAAE1A00F11FC4 /* player_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player_2.png; path = Resources/player_2.png; sourceTree = "<group>"; };
 		C9274C871AAAC08900F11FC4 /* Rush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rush.png; sourceTree = "<group>"; };
+		C9D1D27E1ACA0D6400AFC947 /* main_bg_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_bg_copy.png; path = Resources/main_bg_copy.png; sourceTree = "<group>"; };
 		E3280BBD198459490076DBC2 /* player_4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = player_4.plist; path = Resources/player_4.plist; sourceTree = "<group>"; };
 		E3280BBE198459490076DBC2 /* player_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player_4.png; path = Resources/player_4.png; sourceTree = "<group>"; };
 		E34D46171988473300AAF73E /* bggameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bggameover.png; path = Resources/bggameover.png; sourceTree = "<group>"; };
@@ -907,7 +909,7 @@
 		8CE84D161957D17200716C96 = {
 			isa = PBXGroup;
 			children = (
-				8CE84D3C1957D17200716C96 /* MetaLand */,
+				8CE84D3C1957D17200716C96 /* Sprint */,
 				8CE84D211957D17200716C96 /* Frameworks */,
 				8CE84D201957D17200716C96 /* Products */,
 			);
@@ -916,7 +918,7 @@
 		8CE84D201957D17200716C96 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8CE84D1F1957D17200716C96 /* MetaLand.app */,
+				8CE84D1F1957D17200716C96 /* Sprint.app */,
 				8CE84D381957D17200716C96 /* libObjectiveChipmunk.a */,
 			);
 			name = Products;
@@ -939,7 +941,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8CE84D3C1957D17200716C96 /* MetaLand */ = {
+		8CE84D3C1957D17200716C96 /* Sprint */ = {
 			isa = PBXGroup;
 			children = (
 				3F7A0A761A9EF0D600E0D92C /* MetaLand Icon_iTunesArtwork@2x.png */,
@@ -952,12 +954,13 @@
 				8CE84F9B1957D17400716C96 /* Classes */,
 				8CE84F971957D17400716C96 /* Supporting Files */,
 			);
-			path = MetaLand;
+			path = Sprint;
 			sourceTree = "<group>";
 		};
 		8CE84D3D1957D17200716C96 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9D1D27E1ACA0D6400AFC947 /* main_bg_copy.png */,
 				C9274C831AAAAE1A00F11FC4 /* player_2.plist */,
 				C9274C841AAAAE1A00F11FC4 /* player_2.png */,
 				34D404951A9E64FD005F9B56 /* robot_boost.png */,
@@ -1834,9 +1837,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8CE84D1E1957D17200716C96 /* MetaLand */ = {
+		8CE84D1E1957D17200716C96 /* Sprint */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8CE84FAA1957D17400716C96 /* Build configuration list for PBXNativeTarget "MetaLand" */;
+			buildConfigurationList = 8CE84FAA1957D17400716C96 /* Build configuration list for PBXNativeTarget "Sprint" */;
 			buildPhases = (
 				8CE84D1B1957D17200716C96 /* Sources */,
 				8CE84D1C1957D17200716C96 /* Frameworks */,
@@ -1847,9 +1850,9 @@
 			dependencies = (
 				8CE84D3A1957D17200716C96 /* PBXTargetDependency */,
 			);
-			name = MetaLand;
+			name = Sprint;
 			productName = MetaLand;
-			productReference = 8CE84D1F1957D17200716C96 /* MetaLand.app */;
+			productReference = 8CE84D1F1957D17200716C96 /* Sprint.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8CE84D371957D17200716C96 /* ObjectiveChipmunk */ = {
@@ -1876,7 +1879,7 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "___FULLUSERNAME___";
 			};
-			buildConfigurationList = 8CE84D1A1957D17200716C96 /* Build configuration list for PBXProject "MetaLand" */;
+			buildConfigurationList = 8CE84D1A1957D17200716C96 /* Build configuration list for PBXProject "Sprint" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1888,7 +1891,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8CE84D1E1957D17200716C96 /* MetaLand */,
+				8CE84D1E1957D17200716C96 /* Sprint */,
 				8CE84D371957D17200716C96 /* ObjectiveChipmunk */,
 			);
 		};
@@ -1937,6 +1940,7 @@
 				E355821B1986158300FE8F22 /* Icon-76@2x.png in Resources */,
 				8CFDCE40198635BD00DC7822 /* portalIn.png in Resources */,
 				22D21FE61988570500D8341D /* quit.png in Resources */,
+				C9D1D27F1ACA0D6400AFC947 /* main_bg_copy.png in Resources */,
 				E355822C1986158300FE8F22 /* s2_8.png in Resources */,
 				E35582191986158300FE8F22 /* Icon-72@2x.png in Resources */,
 				E355824E1986158300FE8F22 /* whirlpool.png in Resources */,
@@ -2303,18 +2307,18 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MetaLand/Supporting Files/Prefix.pch";
+				GCC_PREFIX_HEADER = "Sprint/Supporting Files/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/$(PROJECT_NAME)/Libraries/Chipmunk/chipmunk/include\"",
 					"\"$(SRCROOT)/$(PROJECT_NAME)/Libraries/Chipmunk/objectivec/include\"",
 				);
-				INFOPLIST_FILE = MetaLand/Resources/Info.plist;
+				INFOPLIST_FILE = Sprint/Resources/Info.plist;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Sprint;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2326,18 +2330,18 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MetaLand/Supporting Files/Prefix.pch";
+				GCC_PREFIX_HEADER = "Sprint/Supporting Files/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/$(PROJECT_NAME)/Libraries/Chipmunk/chipmunk/include\"",
 					"\"$(SRCROOT)/$(PROJECT_NAME)/Libraries/Chipmunk/objectivec/include\"",
 				);
-				INFOPLIST_FILE = MetaLand/Resources/Info.plist;
+				INFOPLIST_FILE = Sprint/Resources/Info.plist;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Sprint;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2346,7 +2350,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8CE84D1A1957D17200716C96 /* Build configuration list for PBXProject "MetaLand" */ = {
+		8CE84D1A1957D17200716C96 /* Build configuration list for PBXProject "Sprint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8CE84FA51957D17400716C96 /* Debug */,
@@ -2364,7 +2368,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8CE84FAA1957D17400716C96 /* Build configuration list for PBXNativeTarget "MetaLand" */ = {
+		8CE84FAA1957D17400716C96 /* Build configuration list for PBXNativeTarget "Sprint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8CE84FAB1957D17400716C96 /* Debug */,

@@ -47,6 +47,7 @@
     BOOL _isMagnetOn;
     BOOL _isDoubleOn;
     BOOL _isPortalOn;
+    BOOL _isRushOn;
     BOOL _isGameOver;
     BOOL _isInvulnerable;
     BOOL _isCoinProgressFull;
@@ -61,12 +62,14 @@
     int _magnetTime;
     int _doubleTime;
     int _portalTime;
+    int _rushTime;
     
     int _sceneCounter;
     int _targetScene;
     
     float _scrollSpeed;
     float _speedBeforeBoost;
+    float _speedBeforeRush;
     float _forceUpward;
     float _maxDownwardSpeed;
     
@@ -979,6 +982,7 @@
     if(_isBoostOn)
         return;
     if (!_isGameOver) {
+        //[self rush];
         
         touches++;
         if  (touches==2)
@@ -1399,6 +1403,13 @@
     //[self getBoostShield];
 }
 
+-(void)rush {
+    _isRushOn = YES;
+    _rushTime = 0;
+    _speedBeforeRush = _scrollSpeed;
+    _scrollSpeed = 500;
+}
+
 -(void)magnet {
     _isMagnetOn = YES;
     _magnetTime = 0;
@@ -1572,6 +1583,14 @@
         _robot.physicsBody.collisionType = @"robotCollision";
         
     }
+    
+    if (_isRushOn) {
+        _rushTime++;
+        if(_rushTime == 10) {
+            _isRushOn = NO;
+            _scrollSpeed = _speedBeforeRush;
+        }
+    }
 }
 
 -(void)disableInvulnerable {
@@ -1598,11 +1617,13 @@
 // -----------------------------------------------------------------------
 -(void)backgroundScroll : (float)delta {
     
-    for (float i = 0.0f; i<delta; i+=.1f) {
-        _background._background1.position = ccp(_background._background1.position.x - .1, _background._background1.position.y);
-        _background._background2.position = ccp(_background._background2.position.x - .1, _background._background2.position.y);
-        //_background._ground.position = ccp(_background._ground.position.x - .1, _groundInitialY);
-    }
+//    for (float i = 0.0f; i<delta; i+=5.2f) {
+//        _background._background1.position = ccp(_background._background1.position.x - 5.2, _background._background1.position.y);
+//        _background._background2.position = ccp(_background._background2.position.x - 5.2, _background._background2.position.y);
+//        //_background._ground.position = ccp(_background._ground.position.x - .1, _groundInitialY);
+//    }
+    _background._background1.position = ccp(_background._background1.position.x - delta, _background._background1.position.y);
+    _background._background2.position = ccp(_background._background2.position.x - delta, _background._background2.position.y);
     
     if (_background._background1.position.x <= -_background._background1.contentSize.width+1) {
         

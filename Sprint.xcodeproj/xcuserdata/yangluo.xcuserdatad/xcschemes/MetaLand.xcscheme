@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8CE84D371957D17200716C96"
-               BuildableName = "libObjectiveChipmunk.a"
-               BlueprintName = "ObjectiveChipmunk"
-               ReferencedContainer = "container:MetaLand.xcodeproj">
+               BlueprintIdentifier = "8CE84D1E1957D17200716C96"
+               BuildableName = "Sprint.app"
+               BlueprintName = "Sprint"
+               ReferencedContainer = "container:Sprint.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8CE84D1E1957D17200716C96"
+            BuildableName = "Sprint.app"
+            BlueprintName = "Sprint"
+            ReferencedContainer = "container:Sprint.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -39,15 +48,16 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8CE84D371957D17200716C96"
-            BuildableName = "libObjectiveChipmunk.a"
-            BlueprintName = "ObjectiveChipmunk"
-            ReferencedContainer = "container:MetaLand.xcodeproj">
+            BlueprintIdentifier = "8CE84D1E1957D17200716C96"
+            BuildableName = "Sprint.app"
+            BlueprintName = "Sprint"
+            ReferencedContainer = "container:Sprint.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -57,15 +67,16 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8CE84D371957D17200716C96"
-            BuildableName = "libObjectiveChipmunk.a"
-            BlueprintName = "ObjectiveChipmunk"
-            ReferencedContainer = "container:MetaLand.xcodeproj">
+            BlueprintIdentifier = "8CE84D1E1957D17200716C96"
+            BuildableName = "Sprint.app"
+            BlueprintName = "Sprint"
+            ReferencedContainer = "container:Sprint.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
