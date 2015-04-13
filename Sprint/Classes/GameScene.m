@@ -1683,21 +1683,21 @@
         lengthScaleMin = 4;
         lengthScaleMax = 8;
         distanceMin = distanceUnit;
-        distanceMax = distanceUnit * 4;
+        distanceMax = distanceUnit * 3;
         heightOffset = 0;
     }
     else if(distance == 1000) {
         lengthScaleMin = 3;
         lengthScaleMax = 7;
         distanceMin = distanceUnit;
-        distanceMax = distanceUnit * 5;
+        distanceMax = distanceUnit * 3;
         heightOffset = 30;
     }
     else if(distance == 1500) {
         lengthScaleMin = 2;
         lengthScaleMax = 5;
         distanceMin = distanceUnit;
-        distanceMax = distanceUnit * 6;
+        distanceMax = distanceUnit * 3;
         heightOffset = 40;
     }
 }
