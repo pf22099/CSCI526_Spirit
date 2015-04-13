@@ -46,12 +46,12 @@
 -(void)createGroundSprite {
     _ground = [CCSprite spriteWithImageNamed:@"pd_ground.png"];
     _ground.anchorPoint = CGPointZero;
-    _ground.position = ccp(0, -20);
+    _ground.position = ccp(0, 0);
     _ground.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _ground.contentSize} cornerRadius:0];
     _ground.physicsBody.type = CCPhysicsBodyTypeStatic;
     _ground.physicsBody.collisionType = @"hellCollision";
     _ground.physicsBody.friction=0.0f;
-    _ground.scaleX = 1.2;
+    _ground.scaleX = 1.0;
     
     [self addChild:_ground];
 }
@@ -112,7 +112,7 @@
     [spr setPhysicsBody:[CCPhysicsBody bodyWithRect:spr.boundingBox cornerRadius:0]];
     spr.physicsBody.type = CCPhysicsBodyTypeStatic;
     spr.physicsBody.friction=0.0f;
-    spr.physicsBody.collisionGroup = @"gameSceneGroup";
+ 
     spr.physicsBody.collisionType = @"groundCollision";
     
     return spr;

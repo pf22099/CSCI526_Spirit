@@ -236,8 +236,8 @@
 		C9274C851AAAAE1A00F11FC4 /* player_2.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9274C831AAAAE1A00F11FC4 /* player_2.plist */; };
 		C9274C861AAAAE1A00F11FC4 /* player_2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9274C841AAAAE1A00F11FC4 /* player_2.png */; };
 		C9274C881AAAC08900F11FC4 /* Rush.png in Resources */ = {isa = PBXBuildFile; fileRef = C9274C871AAAC08900F11FC4 /* Rush.png */; };
-		C93CB1E71AD333FF0023702E /* coins.png in Resources */ = {isa = PBXBuildFile; fileRef = C93CB1E61AD333FF0023702E /* coins.png */; };
 		C9D1D27F1ACA0D6400AFC947 /* main_bg_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = C9D1D27E1ACA0D6400AFC947 /* main_bg_copy.png */; };
+		C9E35C711ADC6FA80016BB61 /* coins.png in Resources */ = {isa = PBXBuildFile; fileRef = C9E35C701ADC6FA80016BB61 /* coins.png */; };
 		E3280BBF198459490076DBC2 /* player_4.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3280BBD198459490076DBC2 /* player_4.plist */; };
 		E3280BC0198459490076DBC2 /* player_4.png in Resources */ = {isa = PBXBuildFile; fileRef = E3280BBE198459490076DBC2 /* player_4.png */; };
 		E34D46181988473300AAF73E /* bggameover.png in Resources */ = {isa = PBXBuildFile; fileRef = E34D46171988473300AAF73E /* bggameover.png */; };
@@ -271,6 +271,7 @@
 		E355822D1986158300FE8F22 /* s2_9.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581E41986158300FE8F22 /* s2_9.png */; };
 		E355822E1986158300FE8F22 /* buttonDown.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581E61986158300FE8F22 /* buttonDown.png */; };
 		E355822F1986158300FE8F22 /* buttonUp.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581E71986158300FE8F22 /* buttonUp.png */; };
+		E35582301986158300FE8F22 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581E81986158300FE8F22 /* coin.png */; };
 		E35582311986158300FE8F22 /* flashline.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581E91986158300FE8F22 /* flashline.png */; };
 		E35582321986158300FE8F22 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581EA1986158300FE8F22 /* gear.png */; };
 		E35582331986158300FE8F22 /* goldenShield.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581EB1986158300FE8F22 /* goldenShield.png */; };
@@ -767,8 +768,8 @@
 		C9274C831AAAAE1A00F11FC4 /* player_2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = player_2.plist; path = Resources/player_2.plist; sourceTree = "<group>"; };
 		C9274C841AAAAE1A00F11FC4 /* player_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player_2.png; path = Resources/player_2.png; sourceTree = "<group>"; };
 		C9274C871AAAC08900F11FC4 /* Rush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rush.png; sourceTree = "<group>"; };
-		C93CB1E61AD333FF0023702E /* coins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coins.png; sourceTree = "<group>"; };
 		C9D1D27E1ACA0D6400AFC947 /* main_bg_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_bg_copy.png; path = Resources/main_bg_copy.png; sourceTree = "<group>"; };
+		C9E35C701ADC6FA80016BB61 /* coins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coins.png; path = "../../../../526-master_v1.7/Sprint/Resources/Img_Game/coins.png"; sourceTree = "<group>"; };
 		E3280BBD198459490076DBC2 /* player_4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = player_4.plist; path = Resources/player_4.plist; sourceTree = "<group>"; };
 		E3280BBE198459490076DBC2 /* player_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player_4.png; path = Resources/player_4.png; sourceTree = "<group>"; };
 		E34D46171988473300AAF73E /* bggameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bggameover.png; path = Resources/bggameover.png; sourceTree = "<group>"; };
@@ -802,6 +803,7 @@
 		E35581E41986158300FE8F22 /* s2_9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = s2_9.png; sourceTree = "<group>"; };
 		E35581E61986158300FE8F22 /* buttonDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonDown.png; sourceTree = "<group>"; };
 		E35581E71986158300FE8F22 /* buttonUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonUp.png; sourceTree = "<group>"; };
+		E35581E81986158300FE8F22 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
 		E35581E91986158300FE8F22 /* flashline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flashline.png; sourceTree = "<group>"; };
 		E35581EA1986158300FE8F22 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		E35581EB1986158300FE8F22 /* goldenShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goldenShield.png; sourceTree = "<group>"; };
@@ -1766,7 +1768,7 @@
 		E35581E51986158300FE8F22 /* Img_Game */ = {
 			isa = PBXGroup;
 			children = (
-				C93CB1E61AD333FF0023702E /* coins.png */,
+				C9E35C701ADC6FA80016BB61 /* coins.png */,
 				C9274C871AAAC08900F11FC4 /* Rush.png */,
 				3F60ED701AA8226F00E66B51 /* jump.png */,
 				3F7A0A6E1A9EDA5400E0D92C /* fly_ground.png */,
@@ -1776,6 +1778,7 @@
 				22D21FD319875A9100D8341D /* normalShieldIcon.png */,
 				E35581E61986158300FE8F22 /* buttonDown.png */,
 				E35581E71986158300FE8F22 /* buttonUp.png */,
+				E35581E81986158300FE8F22 /* coin.png */,
 				E35581E91986158300FE8F22 /* flashline.png */,
 				E35581EA1986158300FE8F22 /* gear.png */,
 				E35581EB1986158300FE8F22 /* goldenShield.png */,
@@ -1927,6 +1930,7 @@
 				3F7A0A741A9EF0B300E0D92C /* Default-568h@2x.png in Resources */,
 				E35582561986158300FE8F22 /* store_menu_pic_3.png in Resources */,
 				E35582471986158300FE8F22 /* record.png in Resources */,
+				C9E35C711ADC6FA80016BB61 /* coins.png in Resources */,
 				E35582451986158300FE8F22 /* progressBar.png in Resources */,
 				E3280BBF198459490076DBC2 /* player_4.plist in Resources */,
 				220DFE25197E1BE700271A0E /* player_3.png in Resources */,
@@ -1949,8 +1953,8 @@
 				E35582291986158300FE8F22 /* s2_5.png in Resources */,
 				E35582411986158300FE8F22 /* pd_tilemap4.png in Resources */,
 				E35582211986158300FE8F22 /* Icon-Spotlight-iOS7@2x.png in Resources */,
+				E35582301986158300FE8F22 /* coin.png in Resources */,
 				3F7A0A6F1A9EDA5400E0D92C /* fly_ground.png in Resources */,
-				C93CB1E71AD333FF0023702E /* coins.png in Resources */,
 				E35582491986158300FE8F22 /* sound.png in Resources */,
 				8C27C346196E6DAD000B5772 /* player_1.png in Resources */,
 				E355824C1986158300FE8F22 /* warning.png in Resources */,
