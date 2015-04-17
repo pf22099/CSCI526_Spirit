@@ -181,6 +181,7 @@
     distanceMin = distanceUnit;
     distanceMax = distanceUnit + 1;
     lastHeight = _background._background1.contentSize.height * 0.3;
+    distanceUnit = [_robot boundingBox].size.width;
     
     //[self boost];
     
@@ -263,8 +264,6 @@
     _robot.physicsBody.allowsRotation = false;
     _robot.physicsBody.friction = 0.0f;
     [_physicsWorld addChild:_robot z:1];
-    
-    distanceUnit = [_robot boundingBox].size.width;
 }
 
 -(void)addRobotAfterPortal {
@@ -477,6 +476,7 @@
     _coinProgressBar.position = ccp(0.15f, 0.84f);
     _coinProgressBar.name = @"coinProgressBar";
     [self addChild:_coinProgressBar z:0];
+    _coinProgressBar.percentage = 100.0f;
     
     CCSprite *border = [CCSprite spriteWithImageNamed:@"progressBarFrame.png"];
     border.position = ccp(0, 0);
@@ -509,8 +509,10 @@
     
     _robot.rotation=0.0f;
     
-    if(_isFly)
+    if(_isFly) {
         _coinProgressBar.percentage-=0.5f;
+        _isCoinProgressFull = NO;
+    }
     
     if(_coinProgressBar.percentage<=0.0f)
     {
@@ -626,6 +628,7 @@
     
 }
 -(void)screenShake {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.05f position:ccp(-5, 5)];
     CCActionInterval *reverseMovement = [moveBy reverse];
     CCActionSequence *shakeSequence = [CCActionSequence actionWithArray:@[moveBy, reverseMovement,moveBy,reverseMovement,moveBy,reverseMovement,moveBy, reverseMovement,moveBy,reverseMovement,moveBy,reverseMovement]];
@@ -699,51 +702,51 @@
 #pragma mark - Collision Handler
 // -----------------------------------------------------------------------
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair robotCollision:(CCNode *)robot missileCollision:(CCNode *)missile {
-    if(_isRushOn || _isBoostOn)
-        return NO;
-    if (!strcmp([missile.name UTF8String] , "goldenMissile")) {
-        CCAction *actionFall = [CCActionMoveTo actionWithDuration:0.5 position:CGPointMake(missile.position.x, 20)];
-        CCAction *actionFallRemove = [CCActionRemove action];
-        [_robot.physicsBody applyImpulse:ccp(0, 0.2f)];
-        missile.physicsBody.allowsRotation = YES;
-        [missile runAction:[CCActionSequence actionWithArray:@[actionFall,actionFallRemove]]];
-        
-        [self boost];
-        
-        return NO;
-    }
+//    if(_isRushOn || _isBoostOn)
+//        return NO;
+//    if (!strcmp([missile.name UTF8String] , "goldenMissile")) {
+//        CCAction *actionFall = [CCActionMoveTo actionWithDuration:0.5 position:CGPointMake(missile.position.x, 20)];
+//        CCAction *actionFallRemove = [CCActionRemove action];
+//        [_robot.physicsBody applyImpulse:ccp(0, 0.2f)];
+//        missile.physicsBody.allowsRotation = YES;
+//        [missile runAction:[CCActionSequence actionWithArray:@[actionFall,actionFallRemove]]];
+//        
+//        [self boost];
+//        
+//        return NO;
+//    }
     
     [missile removeFromParentAndCleanup:YES];
-    if (_isBoostOn) {
+    if (_isRushOn || _isBoostOn) {
         [self screenShake];
         return NO;
     }
-    else if (_isShieldOn) {
-        [self loseShield];
-        return NO;
-    }
-    else if (_goldenShieldLevel > 0) {
-        _goldenShieldLevel--;
-        //[_robot getChildByName:@"goldenShield" recursively:NO].opacity -= 0.3;
-        
-        if (_goldenShieldLevel == 0) {
-            [self loseShield];
-        }
-        return NO;
-    }
+//    else if (_isShieldOn) {
+//        [self loseShield];
+//        return NO;
+//    }
+//    else if (_goldenShieldLevel > 0) {
+//        _goldenShieldLevel--;
+//        //[_robot getChildByName:@"goldenShield" recursively:NO].opacity -= 0.3;
+//        
+//        if (_goldenShieldLevel == 0) {
+//            [self loseShield];
+//        }
+//        return NO;
+//    }
     else {
-        // Sound effect
-        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
-        [audio playEffect:@"Explosion.wav"];
-        
-        CGFloat x = robot.position.x;
-        CGFloat y = robot.position.y;
-        [_robot removeFromParentAndCleanup:YES];
-        [self addRobotshoted: x andNb: y];
-        [missile removeFromParent];
-        
-        [_userDefault setObject:[NSString stringWithFormat:@"%d", _distance] forKey:@"distance"];
-        [_userDefault synchronize];
+//        // Sound effect
+//        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+//        [audio playEffect:@"Explosion.wav"];
+//        
+//        CGFloat x = robot.position.x;
+//        CGFloat y = robot.position.y;
+//        [_robot removeFromParentAndCleanup:YES];
+//        [self addRobotshoted: x andNb: y];
+//        [missile removeFromParent];
+//        
+//        [_userDefault setObject:[NSString stringWithFormat:@"%d", _distance] forKey:@"distance"];
+//        [_userDefault synchronize];
 
         [self died];
         return YES;
@@ -844,9 +847,10 @@
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair robotCollision:(CCNode *)robot boostCollision:(CCNode *)boost{
     if (!_isBoostOn) {
+        [boost removeFromParentAndCleanup:YES];
         [self boost];
     }
-    [boost removeFromParentAndCleanup:YES];
+    
     return NO;
 }
 
@@ -1019,6 +1023,7 @@
             if(_coinProgressBar.percentage>=10.0f)
             {
                 _coinProgressBar.percentage-=10.0f;
+                _isCoinProgressFull = NO;
                 _robot.physicsBody.affectedByGravity=NO;
                 _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
                 [self rush];
@@ -1383,6 +1388,7 @@
     
     if (_coinProgressBar.percentage >= 100.0/3.0) {
         _coinProgressBar.percentage -= 100.0/3.0;
+        _isCoinProgressFull = NO;
         _numOfCoins -= 50;
         [((CCLabelTTF*)[self getChildByName:@"labelCoin" recursively:NO]) setString:[NSString stringWithFormat:@"Coin: %d", _numOfCoins]];
         
@@ -1424,6 +1430,7 @@
     }
     else if (_coinProgressBar.percentage >= 100.0/3.0) {
         _coinProgressBar.percentage -= 100.0/3.0;
+        _isCoinProgressFull = NO;
         _numOfCoins -= 50;
         [((CCLabelTTF*)[self getChildByName:@"labelCoin" recursively:NO]) setString:[NSString stringWithFormat:@"Coin: %d", _numOfCoins]];
         
@@ -1684,21 +1691,21 @@
         lengthScaleMax = 8;
         distanceMin = distanceUnit;
         distanceMax = distanceUnit * 3;
-        heightOffset = 0;
+        heightOffset = 30;
     }
     else if(distance == 1000) {
         lengthScaleMin = 3;
         lengthScaleMax = 7;
         distanceMin = distanceUnit;
         distanceMax = distanceUnit * 3;
-        heightOffset = 30;
+        heightOffset = 40;
     }
     else if(distance == 1500) {
         lengthScaleMin = 2;
         lengthScaleMax = 5;
         distanceMin = distanceUnit;
         distanceMax = distanceUnit * 3;
-        heightOffset = 40;
+        heightOffset = 50;
     }
 }
 
@@ -1782,7 +1789,7 @@
         float randomDistance = arc4random() % (distanceMax - distanceMin) + distanceMin;
         
         spr.scaleY = 0.5;
-        spr.scaleX = arc4random() % (lengthScaleMax - lengthScaleMin) + lengthScaleMin/10.0;
+        spr.scaleX = (arc4random() % (lengthScaleMax - lengthScaleMin) + lengthScaleMin)/10.0;
         //CCLOG(@"++++++++++++++%lu",(unsigned long)randomScale);
         int x = counter;
         int minY = lastHeight - heightOffset;
