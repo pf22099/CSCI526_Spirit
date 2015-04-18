@@ -800,7 +800,7 @@
 {
     _robot.physicsBody.friction=0.0f;
     
-    
+    [self unschedule:@selector(applyForceWhenTouched)];
     if( _isGameOver )
         return YES;
 
@@ -847,6 +847,7 @@
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair robotCollision:(CCNode *)robot boostCollision:(CCNode *)boost{
     if (!_isBoostOn) {
+        [self unschedule:@selector(applyForceWhenTouched)];
         [boost removeFromParentAndCleanup:YES];
         [self boost];
     }
@@ -931,6 +932,7 @@
     if (!_isBoostOn) {
         [self boost];
     }
+    [self unschedule:@selector(applyForceWhenTouched)];
     [boost removeFromParentAndCleanup:YES];
     return NO;
 }
