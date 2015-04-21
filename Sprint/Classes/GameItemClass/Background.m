@@ -7,7 +7,7 @@
 //
 
 #import "Background.h"
-
+#import "GameScene.h"
 @implementation Background {
     int _screenWidth;
     int _screenHeight;
@@ -46,12 +46,12 @@
 -(void)createGroundSprite {
     _ground = [CCSprite spriteWithImageNamed:@"pd_ground.png"];
     _ground.anchorPoint = CGPointZero;
-    _ground.position = ccp(0, 0);
+    _ground.position = ccp(0, -20);
     _ground.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _ground.contentSize} cornerRadius:0];
     _ground.physicsBody.type = CCPhysicsBodyTypeStatic;
     _ground.physicsBody.collisionType = @"hellCollision";
     _ground.physicsBody.friction=0.0f;
-    _ground.scaleX = 1.0;
+    _ground.scaleX = 1.2;
     
     [self addChild:_ground];
 }
@@ -69,7 +69,16 @@
 }
 
 -(void)createBackgroundSprite {
-    _background1 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree.png"];
+    int level=[GameScene Level];
+    CCLOG(@"++++++%d",level);
+    if(level==1){
+        _background1 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree.png"];
+    }else if(level==2){
+        _background1 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree_level2.png"];
+
+    }else{
+        
+    }
     _background1.anchorPoint = CGPointZero;
     _background1.position = CGPointZero;
     _background1.physicsBody.friction=0.0f;
@@ -79,7 +88,14 @@
      label.position = ccp(0.5f, 0.5f);
      [_background1 addChild:label];
      */
-    _background2 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree.png"];
+    if(level==1){
+        _background2 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree.png"];
+    }else if(level==2){
+        _background2 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree_level2.png"];
+        
+    }else{
+        
+    }
     _background2.anchorPoint = CGPointZero;
     _background2.position = ccp(_background1.contentSize.width-1, 0);
     _background2.physicsBody.friction=0.0f;
@@ -112,7 +128,7 @@
     [spr setPhysicsBody:[CCPhysicsBody bodyWithRect:spr.boundingBox cornerRadius:0]];
     spr.physicsBody.type = CCPhysicsBodyTypeStatic;
     spr.physicsBody.friction=0.0f;
- 
+    spr.physicsBody.collisionGroup = @"gameSceneGroup";
     spr.physicsBody.collisionType = @"groundCollision";
     
     return spr;

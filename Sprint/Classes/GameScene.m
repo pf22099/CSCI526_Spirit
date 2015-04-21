@@ -28,7 +28,7 @@
 
 #define SHIELD_NORMAL 0
 #define SHIELD_GOLDEN 1
-
+static int level;
 @implementation GameScene {
     CCPhysicsNode *_physicsWorld;
     Background *_background;
@@ -64,6 +64,7 @@
     int _doubleTime;
     int _portalTime;
     int _rushTime;
+    CCNode *_thisGround;
     
     int _sceneCounter;
     int _targetScene;
@@ -96,12 +97,18 @@
     int distanceMax;
     int lastHeight;
     int heightOffset;
+    bool upOrDown;
 }
 
 // -----------------------------------------------------------------------
 #pragma mark - Create & Destroy
 // -----------------------------------------------------------------------
-
++ (int) Level{
+    return level;
+}
++ (void) setLevel:(int)value{
+    level=value;
+}
 +(GameScene *)scene {
     return [[self alloc] init];
 }
@@ -111,7 +118,7 @@
 // -----------------------------------------------------------------------
 -(id)init {
     // Apple recommend assigning self with supers return value
-
+    
     self = [super init];
     if (!self) return(nil);
     
@@ -126,14 +133,25 @@
     //[_userDefault setInteger:350 forKey:@"record"];
     _record = (int)[_userDefault integerForKey:@"record"];
     _targetScene = _record/100;
-
+    
     //Initialize variables for flying bridges generation
-    lengthScaleMin = 8;
-    lengthScaleMax = 10;
-    distanceMin = 0;
-    distanceMax = 20;
-    lastHeight = 20;
-    heightOffset = 1;
+    if (1 == level) {
+        lengthScaleMin = 8;
+        lengthScaleMax = 10;
+        distanceMin = 0;
+        distanceMax = 20;
+        lastHeight = 20;
+        heightOffset = 1;
+    }
+    else {
+        lengthScaleMin = 4;
+        lengthScaleMax = 8;
+        distanceMin = 40;
+        distanceMax = 60;
+        heightOffset = 30;
+        lastHeight = 20;
+        upOrDown = false;
+    }
     
     //Create the physics world
     [self createPhysicsWorld];
@@ -178,10 +196,13 @@
     _groundInitialY = 20;
     
     //Update distance between two bridges
-    distanceMin = distanceUnit;
-    distanceMax = distanceUnit + 1;
+    
     lastHeight = _background._background1.contentSize.height * 0.3;
     distanceUnit = [_robot boundingBox].size.width;
+    if(2 == level || 3 == level) {
+        distanceMin = distanceUnit * 2;
+        distanceMax = distanceUnit * 3;
+    }
     
     //[self boost];
     
@@ -194,18 +215,18 @@
     
     // Set record label
     /*CCLabelTTF* labelRecord;
-    _record = [[_userDefault objectForKey:@"record"] intValue];
-    if (_record) {
-        labelRecord = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Record: %d M", _record] fontName:@"Verdana-Bold" fontSize:15.0f];
-    }
-    else {
-        labelRecord = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Record: %d M", 0] fontName:@"Verdana-Bold" fontSize:15.0f];
-    }
-    labelRecord.positionType = CCPositionTypeNormalized;
-    labelRecord.position = ccp(0.40f, 0.95f);
-    labelRecord.name = @"labelRecord";
-    [self addChild:labelRecord z:9];
-    */
+     _record = [[_userDefault objectForKey:@"record"] intValue];
+     if (_record) {
+     labelRecord = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Record: %d M", _record] fontName:@"Verdana-Bold" fontSize:15.0f];
+     }
+     else {
+     labelRecord = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Record: %d M", 0] fontName:@"Verdana-Bold" fontSize:15.0f];
+     }
+     labelRecord.positionType = CCPositionTypeNormalized;
+     labelRecord.position = ccp(0.40f, 0.95f);
+     labelRecord.name = @"labelRecord";
+     [self addChild:labelRecord z:9];
+     */
     // Add the label for coins
     CCLabelTTF* labelCoin = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Coin: %d", _numOfCoins] fontName:@"Verdana-Bold" fontSize:10.0f];
     labelCoin.anchorPoint = ccp(0,0);
@@ -225,7 +246,7 @@
     [self schedule:@selector(tick) interval:0.1];
     
     // done
-	return self;
+    return self;
 }
 
 // -----------------------------------------------------------------------
@@ -234,7 +255,7 @@
 -(void)createPhysicsWorld {
     //Create physics-world
     _physicsWorld = [CCPhysicsNode node];
-
+    
     _physicsWorld.gravity = ccp(0, -500.0f);
     _physicsWorld.debugDraw = NO;
     _physicsWorld.collisionDelegate = self;
@@ -248,9 +269,9 @@
     _background._ceiling.position = ccp(0,_ceilingInitialY);
     
     if (_targetScene==0)
-        [self addRecordSign:_background._background1];
+    [self addRecordSign:_background._background1];
     else if(_targetScene==1)
-        [self addRecordSign:_background._background2];
+    [self addRecordSign:_background._background2];
     
     [_physicsWorld addChild:_background];
 }
@@ -281,7 +302,7 @@
         else if (_goldenShieldLevel == 2) {
             [self getGoldenShield];
             _goldenShieldLevel = 2;
-           // [_robot getChildByName:@"goldenShield" recursively:NO].opacity = 0.7;
+            // [_robot getChildByName:@"goldenShield" recursively:NO].opacity = 0.7;
         }
         else {
             [self getGoldenShield];
@@ -320,45 +341,45 @@
         [self generateBoost];
     }
     //else if (_isBoostOn) {
-     //   [self generateMagnet];
+    //   [self generateMagnet];
     //}
     else {
         //if(arc4random()%100/100.0f <= 0.5f){
         //    [self generateMagnet];
         //}
         //else{
-            [self generateBoost];
+        [self generateBoost];
         //}
     }
 }
 /*
--(void)generateMagnet {
-    CCSprite *magnet = [Rewards magnetInit];
-    //magnet.positionType = CCPositionTypeNormalized;
-    magnet.position = ccp(self.contentSize.width+magnet.contentSize.width, self.contentSize.height/2);
-    
-    ccBezierConfig bezierUp;
-    bezierUp.controlPoint_1 = ccp(-160, 80);
-    bezierUp.controlPoint_2 = ccp(-170, 80);
-    bezierUp.endPosition = ccp(-360,0);
-    
-    ccBezierConfig bezierDown;
-    bezierDown.controlPoint_1 = ccp(-160, -80);
-    bezierDown.controlPoint_2 = ccp(-170, -80);
-    bezierDown.endPosition = ccp(-360,0);
-    CCActionBezierBy *actionUp = [CCActionBezierBy actionWithDuration:3 bezier:bezierUp];
-    CCActionBezierBy *actionDown = [CCActionBezierBy actionWithDuration:3 bezier:bezierDown];
-    CCActionCallBlock *block = [CCActionCallBlock actionWithBlock:^{
-        [magnet stopAllActions];
-    }];
-    CCActionCallBlock *actionAfterMoving = [CCActionCallBlock actionWithBlock:^{
-        [magnet removeFromParentAndCleanup:YES];
-    }];
-    [magnet runAction:[CCActionSequence actions:actionUp, actionDown, actionUp, actionDown, block, actionAfterMoving,nil]];
-    
-    [_physicsWorld addChild:magnet z:1];
-    
-}
+ -(void)generateMagnet {
+ CCSprite *magnet = [Rewards magnetInit];
+ //magnet.positionType = CCPositionTypeNormalized;
+ magnet.position = ccp(self.contentSize.width+magnet.contentSize.width, self.contentSize.height/2);
+ 
+ ccBezierConfig bezierUp;
+ bezierUp.controlPoint_1 = ccp(-160, 80);
+ bezierUp.controlPoint_2 = ccp(-170, 80);
+ bezierUp.endPosition = ccp(-360,0);
+ 
+ ccBezierConfig bezierDown;
+ bezierDown.controlPoint_1 = ccp(-160, -80);
+ bezierDown.controlPoint_2 = ccp(-170, -80);
+ bezierDown.endPosition = ccp(-360,0);
+ CCActionBezierBy *actionUp = [CCActionBezierBy actionWithDuration:3 bezier:bezierUp];
+ CCActionBezierBy *actionDown = [CCActionBezierBy actionWithDuration:3 bezier:bezierDown];
+ CCActionCallBlock *block = [CCActionCallBlock actionWithBlock:^{
+ [magnet stopAllActions];
+ }];
+ CCActionCallBlock *actionAfterMoving = [CCActionCallBlock actionWithBlock:^{
+ [magnet removeFromParentAndCleanup:YES];
+ }];
+ [magnet runAction:[CCActionSequence actions:actionUp, actionDown, actionUp, actionDown, block, actionAfterMoving,nil]];
+ 
+ [_physicsWorld addChild:magnet z:1];
+ 
+ }
  */
 
 -(void)generateBoost {
@@ -401,39 +422,39 @@
     
     // Set random missile position
     int maxY = self.contentSize.height - missile.contentSize.height - _background._topBackground.contentSize.height;
-    int minY = _groundInitialY + _background._ground.contentSize.height+_groundInitialY;
+    int minY = maxY / 2;
     int randomY = [self random:minY withArg2:maxY];
     
     //float typeFlag = arc4random()%100/100.0f;
     //CCSprite* warningLine = [CCSprite spriteWithImageNamed:@"flashline.png"];
     CCSprite* warning = [CCSprite spriteWithImageNamed:@"warning.png"];
-
-        missile = [Enemies missileInit:MISSILE_NORMAL];
-        //[audio playEffect:@"warning.wav"];
-
-        actionMove = [CCActionMoveBy actionWithDuration:4 position:ccp(-_background._background1.contentSize.width-2*missile.contentSize.width,0)];
-        
-        
-       // warningLine.anchorPoint = ccp(0,0);
-        //warningLine.position = ccp(0,randomY+10);
-        
-//        warning.anchorPoint = ccp(0, 0);
-//        warning.position = ccp(self.contentSize.width - warning.contentSize.width, randomY);
-//        CCAction* actionFadeOut = [CCActionFadeOut actionWithDuration:.4f];
-//        CCAction* actionFadeIn = [CCActionFadeIn actionWithDuration:.4f];
-//        CCActionCallBlock* callBlock = [CCActionCallBlock actionWithBlock:^{
-//            //warning.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"warning_missile_normal_2.png"];
-//            [self performSelector:@selector(changeWarning:) withObject:warning];
-//        }];
     
-        missile.position = ccp(self.contentSize.width + warning.contentSize.width + missile.contentSize.width, warning.position.y);
-        
-        //CCAction *warningDelay = [CCActionDelay actionWithDuration:.5f];
-        //CCAction *warningRemove = [CCActionRemove action];
-        //[warning runAction:[CCActionSequence actionWithArray:@[actionFadeOut, actionFadeIn, actionFadeOut, callBlock, actionFadeIn, warningDelay, warningRemove]]];
-        //[warningLine runAction:[CCActionSequence actionWithArray:@[actionFadeOut,actionFadeIn,actionFadeOut,actionFadeIn,warningDelay,warningRemove]]];
-        //[self addChild:warning z:2];
-        //[self addChild:warningLine z:2];
+    missile = [Enemies missileInit:MISSILE_NORMAL];
+    //[audio playEffect:@"warning.wav"];
+    
+    actionMove = [CCActionMoveBy actionWithDuration:4 position:ccp(-_background._background1.contentSize.width-2*missile.contentSize.width,0)];
+    
+    
+    // warningLine.anchorPoint = ccp(0,0);
+    //warningLine.position = ccp(0,randomY+10);
+    
+    //        warning.anchorPoint = ccp(0, 0);
+    //        warning.position = ccp(self.contentSize.width - warning.contentSize.width, randomY);
+    //        CCAction* actionFadeOut = [CCActionFadeOut actionWithDuration:.4f];
+    //        CCAction* actionFadeIn = [CCActionFadeIn actionWithDuration:.4f];
+    //        CCActionCallBlock* callBlock = [CCActionCallBlock actionWithBlock:^{
+    //            //warning.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"warning_missile_normal_2.png"];
+    //            [self performSelector:@selector(changeWarning:) withObject:warning];
+    //        }];
+    
+    missile.position = ccp(self.contentSize.width + warning.contentSize.width + missile.contentSize.width, warning.position.y);
+    
+    //CCAction *warningDelay = [CCActionDelay actionWithDuration:.5f];
+    //CCAction *warningRemove = [CCActionRemove action];
+    //[warning runAction:[CCActionSequence actionWithArray:@[actionFadeOut, actionFadeIn, actionFadeOut, callBlock, actionFadeIn, warningDelay, warningRemove]]];
+    //[warningLine runAction:[CCActionSequence actionWithArray:@[actionFadeOut,actionFadeIn,actionFadeOut,actionFadeIn,warningDelay,warningRemove]]];
+    //[self addChild:warning z:2];
+    //[self addChild:warningLine z:2];
     
     
     
@@ -460,7 +481,7 @@
         [missile removeFromParentAndCleanup:YES];
     }];
     [missile runAction:[CCActionSequence actionWithArray:@[actionDelay, actionMove, actionRemove, actionAfterMoving]]];
-
+    
     // Add missile to the physics world
     [_physicsWorld addChild:missile z:1];
     
@@ -483,16 +504,16 @@
     border.anchorPoint = ccp(0.15, 0.35);
     [_coinProgressBar addChild:border z:9];
     _coinProgressBar.percentage = 100.0f;
-
+    
     /*
-    CCSpriteFrame *progressBarFrame = [CCSpriteFrame frameWithImageNamed:@"progressBarFrame.png"];
-    _buttonCoinProgressBar = [CCButton buttonWithTitle:nil spriteFrame:progressBarFrame];
-    _buttonCoinProgressBar.position = ccp(0, 0);
-    _buttonCoinProgressBar.anchorPoint = ccp(0, 0);
-    _buttonCoinProgressBar.name = @"buttonGoldenShield";
-    _buttonCoinProgressBar.enabled = NO;
-    [_coinProgressBar addChild:_buttonCoinProgressBar z:9];
-    [_buttonCoinProgressBar setTarget:self selector:@selector(onProgressBarClicked:)];
+     CCSpriteFrame *progressBarFrame = [CCSpriteFrame frameWithImageNamed:@"progressBarFrame.png"];
+     _buttonCoinProgressBar = [CCButton buttonWithTitle:nil spriteFrame:progressBarFrame];
+     _buttonCoinProgressBar.position = ccp(0, 0);
+     _buttonCoinProgressBar.anchorPoint = ccp(0, 0);
+     _buttonCoinProgressBar.name = @"buttonGoldenShield";
+     _buttonCoinProgressBar.enabled = NO;
+     [_coinProgressBar addChild:_buttonCoinProgressBar z:9];
+     [_buttonCoinProgressBar setTarget:self selector:@selector(onProgressBarClicked:)];
      */
 }
 
@@ -501,9 +522,9 @@
 // -----------------------------------------------------------------------
 -(void)update:(CCTime)delta {
     /*
-    if (_coinProgressBar.percentage >= 100.0/3.0) {
-        _buttonCoinProgressBar.enabled = YES;
-    }
+     if (_coinProgressBar.percentage >= 100.0/3.0) {
+     _buttonCoinProgressBar.enabled = YES;
+     }
      */
     //detect if fall down
     
@@ -523,25 +544,25 @@
     if(_robot.position.y < -10) {
         [self died];
     }
-//    if(!_isGameOver)
-//    {
-//        
-//        if(_robot.position.x<self.contentSize.width/5)
-//        {
-//            CCAction *move = [CCActionMoveBy actionWithDuration:0.3f position:ccp(15, 0)];
-//            [_robot runAction:move];
-//            [self unschedule:@selector(applyForceWhenTouched)];
-//            touches=0;
-//        }
-//    
-//        if(_robot.position.x > self.contentSize.width/3)
-//        {
-//            CCAction *move = [CCActionMoveBy actionWithDuration:0.3f position:ccp(15, 0)];
-//            [_robot runAction:move];
-//            [self unschedule:@selector(applyForceWhenTouched)];
-//            touches=0;
-//        }
-//    }
+    //    if(!_isGameOver)
+    //    {
+    //
+    //        if(_robot.position.x<self.contentSize.width/5)
+    //        {
+    //            CCAction *move = [CCActionMoveBy actionWithDuration:0.3f position:ccp(15, 0)];
+    //            [_robot runAction:move];
+    //            [self unschedule:@selector(applyForceWhenTouched)];
+    //            touches=0;
+    //        }
+    //
+    //        if(_robot.position.x > self.contentSize.width/3)
+    //        {
+    //            CCAction *move = [CCActionMoveBy actionWithDuration:0.3f position:ccp(15, 0)];
+    //            [_robot runAction:move];
+    //            [self unschedule:@selector(applyForceWhenTouched)];
+    //            touches=0;
+    //        }
+    //    }
     
     if (_isPortalOn) {
         self.userInteractionEnabled = NO;
@@ -557,12 +578,12 @@
     if (!_isBoostOn && !_isPortalOn && !_isGameOver ) {
         _scrollSpeed += 0.0004;
     }
-  
-
+    
+    
     
     _maxDownwardSpeed = -100 - _scrollSpeed * 20;
     
-
+    
     
     [self generateRandomMissile];
     
@@ -612,7 +633,7 @@
                             [self coinRemove:sprite];
                         }];
                         [sprite runAction:[CCActionSequence actionWithArray:@[action,blockChangeAction,blockChangeAction, blockChangeAction, blockChangeAction, blockChangeAction, blockChangeAction, blockChangeAction, blockChangeAction, blockChangeAction, blockChangeAction, blockChangeAction, blockChangeAction, blockRemove]]];
-
+                        
                     }
                 }
             }
@@ -674,21 +695,21 @@
     [_robot addChild:shield];
     
     //if (_goldenShieldLevel == 2) {
-        //shield.opacity= 0.7f;
-   // }
-   // else if (_goldenShieldLevel == 1) {
-       // shield.opacity = 0.6f;
+    //shield.opacity= 0.7f;
+    // }
+    // else if (_goldenShieldLevel == 1) {
+    // shield.opacity = 0.6f;
     //}
 }
 /*
--(void)getBoostShield {
-    //CCSprite *shield = [CCSprite spriteWithImageNamed:@"shieldGreen.png"];
-    //shield.name = @"boostShield";
-    //shield.positionType = CCPositionTypeNormalized;
-    //shield.position = ccp(0.5f, 0.5f);
-    //[_robot addChild:shield];
-}
-*/
+ -(void)getBoostShield {
+ //CCSprite *shield = [CCSprite spriteWithImageNamed:@"shieldGreen.png"];
+ //shield.name = @"boostShield";
+ //shield.positionType = CCPositionTypeNormalized;
+ //shield.position = ccp(0.5f, 0.5f);
+ //[_robot addChild:shield];
+ }
+ */
 -(void)loseShield {
     [self screenShake];
     if (_isShieldOn) {
@@ -702,59 +723,59 @@
 #pragma mark - Collision Handler
 // -----------------------------------------------------------------------
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair robotCollision:(CCNode *)robot missileCollision:(CCNode *)missile {
-//    if(_isRushOn || _isBoostOn)
-//        return NO;
-//    if (!strcmp([missile.name UTF8String] , "goldenMissile")) {
-//        CCAction *actionFall = [CCActionMoveTo actionWithDuration:0.5 position:CGPointMake(missile.position.x, 20)];
-//        CCAction *actionFallRemove = [CCActionRemove action];
-//        [_robot.physicsBody applyImpulse:ccp(0, 0.2f)];
-//        missile.physicsBody.allowsRotation = YES;
-//        [missile runAction:[CCActionSequence actionWithArray:@[actionFall,actionFallRemove]]];
-//        
-//        [self boost];
-//        
-//        return NO;
-//    }
+    //    if(_isRushOn || _isBoostOn)
+    //        return NO;
+    //    if (!strcmp([missile.name UTF8String] , "goldenMissile")) {
+    //        CCAction *actionFall = [CCActionMoveTo actionWithDuration:0.5 position:CGPointMake(missile.position.x, 20)];
+    //        CCAction *actionFallRemove = [CCActionRemove action];
+    //        [_robot.physicsBody applyImpulse:ccp(0, 0.2f)];
+    //        missile.physicsBody.allowsRotation = YES;
+    //        [missile runAction:[CCActionSequence actionWithArray:@[actionFall,actionFallRemove]]];
+    //
+    //        [self boost];
+    //
+    //        return NO;
+    //    }
     
     [missile removeFromParentAndCleanup:YES];
     if (_isRushOn || _isBoostOn) {
         [self screenShake];
         return NO;
     }
-//    else if (_isShieldOn) {
-//        [self loseShield];
-//        return NO;
-//    }
-//    else if (_goldenShieldLevel > 0) {
-//        _goldenShieldLevel--;
-//        //[_robot getChildByName:@"goldenShield" recursively:NO].opacity -= 0.3;
-//        
-//        if (_goldenShieldLevel == 0) {
-//            [self loseShield];
-//        }
-//        return NO;
-//    }
+    //    else if (_isShieldOn) {
+    //        [self loseShield];
+    //        return NO;
+    //    }
+    //    else if (_goldenShieldLevel > 0) {
+    //        _goldenShieldLevel--;
+    //        //[_robot getChildByName:@"goldenShield" recursively:NO].opacity -= 0.3;
+    //
+    //        if (_goldenShieldLevel == 0) {
+    //            [self loseShield];
+    //        }
+    //        return NO;
+    //    }
     else {
-//        // Sound effect
-//        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
-//        [audio playEffect:@"Explosion.wav"];
-//        
-//        CGFloat x = robot.position.x;
-//        CGFloat y = robot.position.y;
-//        [_robot removeFromParentAndCleanup:YES];
-//        [self addRobotshoted: x andNb: y];
-//        [missile removeFromParent];
-//        
-//        [_userDefault setObject:[NSString stringWithFormat:@"%d", _distance] forKey:@"distance"];
-//        [_userDefault synchronize];
-
+        //        // Sound effect
+        //        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+        //        [audio playEffect:@"Explosion.wav"];
+        //
+        //        CGFloat x = robot.position.x;
+        //        CGFloat y = robot.position.y;
+        //        [_robot removeFromParentAndCleanup:YES];
+        //        [self addRobotshoted: x andNb: y];
+        //        [missile removeFromParent];
+        //
+        //        [_userDefault setObject:[NSString stringWithFormat:@"%d", _distance] forKey:@"distance"];
+        //        [_userDefault synchronize];
+        
         [self died];
         return YES;
     }
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair robotCollision:(CCNode *)robot obstacleCollision:(CCNode *)obstacle {
-  //  return NO;
+    //  return NO;
     [obstacle removeFromParentAndCleanup:YES];
     if (_isBoostOn || _isRushOn) {
         [self screenShake];
@@ -802,8 +823,8 @@
     
     [self unschedule:@selector(applyForceWhenTouched)];
     if( _isGameOver )
-        return YES;
-
+    return YES;
+    
     if (robot.position.y<ground.position.y || _isBoostOn) {
         return NO;
     }
@@ -812,7 +833,20 @@
     CGFloat y = _robot.position.y;
     [_robot removeFromParentAndCleanup:YES];
     [self addRobotBackToRun:x andNb:y];
+    if(level==2)
+    {
+        if(_distance>=200)
+        {
+        _thisGround=ground;
+        [self scheduleOnce:@selector(removeGround) delay:0.7f];
+        }
+    }
     return YES;
+}
+
+-(void)removeGround
+{
+    [_thisGround removeFromParent];
 }
 
 //colission between robot and lower ground -- to die
@@ -863,7 +897,7 @@
     _isPortalOn = YES;
     [portal removeFromParentAndCleanup:YES];
     [robot removeFromParentAndCleanup:YES];
-
+    
     _speedBeforeBoost = _scrollSpeed;
     _scrollSpeed = 0;
     
@@ -873,7 +907,7 @@
     [_userDefault setInteger:_goldenShieldLevel forKey:@"goldenShieldLevel"];
     [_userDefault setFloat:_coinProgressBar.percentage forKey:@"coinProgressPercentage"];
     [_userDefault synchronize];
-
+    
     [[CCDirector sharedDirector] pushScene:[PortalScene scene] withTransition:[CCTransition transitionFadeWithDuration:0.5f]];
     
     return YES;
@@ -886,7 +920,7 @@
     
     if (!_isCoinProgressFull) {
         _coinProgressBar.percentage += 15*100.0/150.0;
-
+        
         if (_coinProgressBar.percentage >= 100.0) {
             _isCoinProgressFull = YES;
         }
@@ -894,9 +928,13 @@
     return NO;
 }
 //
-//-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair superRobotCollision:(CCNode *)robot obstacleCollision:(CCNode *)obstacle {
-//    return NO;
-//}
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair superRobotCollision:(CCNode *)robot obstacleCollision:(CCNode *)obstacle {
+    return NO;
+}
+
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair superRobotCollision:(CCNode *)robot groundCollision:(CCNode *)ground {
+    return NO;
+}
 //
 //-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair superRobotCollision:(CCNode *)robot missileCollision:(CCNode *)missile {
 //    return NO;
@@ -992,7 +1030,7 @@
     [_userDefault synchronize];
     
     [[CCDirector sharedDirector] replaceScene:[GameOverScene scene] withTransition:[CCTransition transitionFadeWithDuration:0.5f]];
-
+    
 }
 
 //Selectors
@@ -1011,15 +1049,15 @@
     //[_robot.physicsBody applyForce:ccp(0, 2000)];
     // Move the robot upward
     /*
-    if(_scrollSpeed < 6) {
-        [_robot.physicsBody applyImpulse:ccp(0,0.05f)];
-    }
-    else {
-        [_robot.physicsBody applyImpulse:ccp(0,0.1f)];
-        
-    }*/
+     if(_scrollSpeed < 6) {
+     [_robot.physicsBody applyImpulse:ccp(0,0.05f)];
+     }
+     else {
+     [_robot.physicsBody applyImpulse:ccp(0,0.1f)];
+     
+     }*/
     if(_isBoostOn)
-        return;
+    return;
     if (!_isGameOver) {
         if (touch.locationInWorld.x>300.0f && _isRushOn==NO) {
             if(_coinProgressBar.percentage>=10.0f)
@@ -1032,60 +1070,60 @@
                 return;
             }
             else
-                return;
+            return;
         }
         else if(touch.locationInWorld.x<=300.0f)
         {
-        touches++;
-        if  (touches==2)
-        {
-            _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
-            [_robot.physicsBody applyForce:ccp(0,15.0f)];
-            return;
-        }
-        else if (touches>=3)
-        {
-            if(_coinProgressBar.percentage >= 3.0f)
+            touches++;
+            if  (touches==2)
             {
-            _isFly=TRUE;
-            CGFloat px = _robot.position.x;
-            CGFloat py = _robot.position.y;
-            _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
-            
-            [_robot removeFromParentAndCleanup:YES];
-            _robot = [Robot createCharacter:CHARACTER_ROBOT_FLY];
-            _robot.position = ccp(px, py);
-            _robot.physicsBody.collisionGroup = @"robotGroup";
-            _robot.physicsBody.collisionType = @"robotCollision";
-            [_physicsWorld addChild:_robot z:1];
-            [self schedule:@selector(applyForceWhenTouched) interval:1.0f/10.0f];
-            
+                _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
+                [_robot.physicsBody applyForce:ccp(0,15.0f)];
                 return;
             }
-            else
+            else if (touches>=3)
+            {
+                if(_coinProgressBar.percentage >= 3.0f)
+                {
+                    _isFly=TRUE;
+                    CGFloat px = _robot.position.x;
+                    CGFloat py = _robot.position.y;
+                    _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
+                    
+                    [_robot removeFromParentAndCleanup:YES];
+                    _robot = [Robot createCharacter:CHARACTER_ROBOT_FLY];
+                    _robot.position = ccp(px, py);
+                    _robot.physicsBody.collisionGroup = @"robotGroup";
+                    _robot.physicsBody.collisionType = @"robotCollision";
+                    [_physicsWorld addChild:_robot z:1];
+                    [self schedule:@selector(applyForceWhenTouched) interval:1.0f/10.0f];
+                    
+                    return;
+                }
+                else
                 return;
-        }
-
-        
-//        CGFloat x = self.contentSize.width/4;
-//        CGFloat y = _robot.position.y;
-//        if(!_isBoostOn){
-//            [_robot removeFromParentAndCleanup:YES];
-//            [self addRobotJump:x andNb:y];
-//        }else{
-//            [_robot removeFromParentAndCleanup:YES];
-//
-//            [self addRobotBoost:x andNb:y];
-//        }
-//        
-//        if(_scrollSpeed < 6) {
-//            [_robot.physicsBody applyImpulse:ccp(0,0.05f)];
-//        }
-//        else {
-//            [_robot.physicsBody applyImpulse:ccp(0,0.1f)];
-//        }
-        [_robot.physicsBody applyForce:ccp(0,14.0f)];
-        _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
+            }
+            
+            
+            //        CGFloat x = self.contentSize.width/4;
+            //        CGFloat y = _robot.position.y;
+            //        if(!_isBoostOn){
+            //            [_robot removeFromParentAndCleanup:YES];
+            //            [self addRobotJump:x andNb:y];
+            //        }else{
+            //            [_robot removeFromParentAndCleanup:YES];
+            //
+            //            [self addRobotBoost:x andNb:y];
+            //        }
+            //
+            //        if(_scrollSpeed < 6) {
+            //            [_robot.physicsBody applyImpulse:ccp(0,0.05f)];
+            //        }
+            //        else {
+            //            [_robot.physicsBody applyImpulse:ccp(0,0.1f)];
+            //        }
+            [_robot.physicsBody applyForce:ccp(0,14.0f)];
+            _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
         }
     }
     else {
@@ -1098,7 +1136,7 @@
     if (touches>=3) {
         _isFly=FALSE;
         [self unschedule:@selector(applyForceWhenTouched)];
-
+        
     }
 }
 
@@ -1148,14 +1186,14 @@
     if (forceDownward < -5.0f) {
         [_robot.physicsBody applyForce:ccp(0,5.0f)];
     }
-
+    
 }
 
 //-(void)addRobotJump:(CGFloat) px andNb:(CGFloat) py{
 //    _robot = [Robot createCharacter:CHARACTER_ROBOT_FLY];
 //    _robot.position = ccp(px, py);
 //    [_physicsWorld addChild:_robot z:1];
-//    
+//
 //    if (_isShieldOn) {
 //        [self getShield];
 //    }
@@ -1183,11 +1221,11 @@
         [self getGoldenShield];
     }
     //else if (_isBoostOn) {
-      //  [self getBoostShield];
-   // }
+    //  [self getBoostShield];
+    // }
     //else if (_isInvulnerable) {
-     //   _robot.opacity = 0.5f;
-   // }
+    //   _robot.opacity = 0.5f;
+    // }
 }
 -(void)addRobotBoost:(CGFloat) px andNb:(CGFloat) py{
     _robot = [Robot createCharacter:CHARACTER_ROBOT_BOOST];
@@ -1202,11 +1240,11 @@
         [self getGoldenShield];
     }
     //else if (_isBoostOn) {
-     //   [self getBoostShield];
+    //   [self getBoostShield];
     //}
     //else if (_isInvulnerable) {
-       // _robot.opacity = 0.5f;
-   // }
+    // _robot.opacity = 0.5f;
+    // }
 }
 
 -(void)addRobotFall:(CGFloat) px andNb:(CGFloat) py{
@@ -1224,8 +1262,8 @@
     //    [self getBoostShield];
     //}
     //else if (_isInvulnerable) {
-      //  _robot.opacity = 0.5f;
-   // }
+    //  _robot.opacity = 0.5f;
+    // }
 }
 
 
@@ -1234,13 +1272,13 @@
 #pragma mark - Add Buttons
 // -----------------------------------------------------------------------
 -(void)addButtonJump {
-//    CCSpriteFrame *jumpFrame = [CCSpriteFrame frameWithImageNamed:@"jump.png"];
-//    CCButton *buttonJump = [CCButton buttonWithTitle:nil spriteFrame:jumpFrame];
-//    buttonJump.positionType = CCPositionTypeNormalized;
-//    buttonJump.position = ccp(0.15f, 0.15f); // Top Right of screen
-//    buttonJump.name = @"buttonJump";
-////    [buttonJump setTarget:self selector:@selector(onJumpClicked:)];
-//    [self addChild:buttonJump z:9];
+    //    CCSpriteFrame *jumpFrame = [CCSpriteFrame frameWithImageNamed:@"jump.png"];
+    //    CCButton *buttonJump = [CCButton buttonWithTitle:nil spriteFrame:jumpFrame];
+    //    buttonJump.positionType = CCPositionTypeNormalized;
+    //    buttonJump.position = ccp(0.15f, 0.15f); // Top Right of screen
+    //    buttonJump.name = @"buttonJump";
+    ////    [buttonJump setTarget:self selector:@selector(onJumpClicked:)];
+    //    [self addChild:buttonJump z:9];
     CCSprite *button=[CCSprite spriteWithImageNamed:@"jump.png"];
     button.positionType=CCPositionTypeNormalized;
     button.position=ccp(0.1, 0.15);
@@ -1299,7 +1337,7 @@
 -(void)addButtonRestart {
     CCButton* buttonRestart = [CCButton buttonWithTitle:@"[ Restart ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     //CCButton *buttonRestart = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"restart.png"]];
-
+    
     buttonRestart.positionType = CCPositionTypeNormalized;
     buttonRestart.position = ccp(0.5, 0.5f);
     buttonRestart.name = @"buttonRestart";
@@ -1481,7 +1519,7 @@
 //    if(_isBoostOn)
 //        return;
 //    if (!_isGameOver) {
-//        
+//
 //        touches++;
 //        if  (touches==2)
 //        {
@@ -1492,20 +1530,20 @@
 //        if (touches==3) {
 //            CGFloat px = _robot.position.x;
 //            CGFloat py = _robot.position.y;
-//            
+//
 //            [_robot removeFromParentAndCleanup:YES];
 //            _robot = [Robot createCharacter:CHARACTER_ROBOT_FLY];
 //            _robot.position = ccp(px, py);
 //            _robot.physicsBody.collisionGroup = @"robotGroup";
 //            _robot.physicsBody.collisionType = @"robotCollision";
-//            
+//
 //            [_physicsWorld addChild:_robot z:1];
 //            [self schedule:@selector(applyForceWhenTouched) interval:1.0f/10.0f];
 //            return;
 //        }
 //        if(touches>=3)
 //            return;
-//        
+//
 //        //        CGFloat x = self.contentSize.width/4;
 //        //        CGFloat y = _robot.position.y;
 //        //        if(!_isBoostOn){
@@ -1525,7 +1563,7 @@
 //        //        }
 //        [_robot.physicsBody applyForce:ccp(0,14.0f)];
 //        _robot.physicsBody.velocity=CGPointZero;
-//        
+//
 //    }
 //    else {
 //        self.userInteractionEnabled = NO;
@@ -1570,8 +1608,8 @@
     }
     //return (arc4random() % range) + minimum;
     if(height>maximum)
-        height = maximum;
-
+    height = maximum;
+    
     return height;
 }
 
@@ -1601,22 +1639,22 @@
     
     [self updateRandomGenerator];
     
-    if (_isInvulnerable) {
+    if (_isBoostOn) {
         _robot.physicsBody.collisionType = @"superRobotCollision";
     }
     else {
         _robot.physicsBody.collisionType = @"robotCollision";
     }
     /*
-    if( _coinProgressBar.percentage >= 33.4 && ![self getChildByName:@"btnNormalShield" recursively:NO] )
-    {
-        [self addButtonNormalShield];
-    }
-    if( _isCoinProgressFull && ![self getChildByName:@"btnGoldenShield" recursively:NO])
-    {
-        [self addButtonGoldenShield];
-    }
-    */
+     if( _coinProgressBar.percentage >= 33.4 && ![self getChildByName:@"btnNormalShield" recursively:NO] )
+     {
+     [self addButtonNormalShield];
+     }
+     if( _isCoinProgressFull && ![self getChildByName:@"btnGoldenShield" recursively:NO])
+     {
+     [self addButtonGoldenShield];
+     }
+     */
     
     if (_isBoostOn) {
         _boostTime++;
@@ -1632,16 +1670,16 @@
             [_robot removeFromParentAndCleanup:YES];
             [self addRobotBackToRun:x andNb:y];
             
-//            CCAction *fadeIn = [CCActionFadeIn actionWithDuration:0.5f];
-//            CCAction *fadeOut = [CCActionFadeOut actionWithDuration:0.5f];
-//            CCAction *fadeOutBlock = [CCActionCallBlock actionWithBlock:^{
-//                _isInvulnerable = NO;
-//            }];
-//            [_robot runAction:[CCActionSequence actionWithArray:@[fadeIn, fadeOut, fadeIn, fadeOut, fadeIn, fadeOutBlock]]];
-              [self performSelector:@selector(disableInvulnerable) withObject:nil];
+            //            CCAction *fadeIn = [CCActionFadeIn actionWithDuration:0.5f];
+            //            CCAction *fadeOut = [CCActionFadeOut actionWithDuration:0.5f];
+            //            CCAction *fadeOutBlock = [CCActionCallBlock actionWithBlock:^{
+            //                _isInvulnerable = NO;
+            //            }];
+            //            [_robot runAction:[CCActionSequence actionWithArray:@[fadeIn, fadeOut, fadeIn, fadeOut, fadeIn, fadeOutBlock]]];
+            [self performSelector:@selector(disableInvulnerable) withObject:nil];
         }
         _robot.physicsBody.friction = 0.0f;
-
+        
         
         _robot.physicsBody.collisionType = @"robotCollision";
         
@@ -1665,54 +1703,94 @@
 
 -(void)calculateDistacne {
     if (_background._background1.position.x <= 0)
-        _distance = 100 * (_sceneCounter - _background._background1.position.x/_background._background1.contentSize.width);
+    _distance = 100 * (_sceneCounter - _background._background1.position.x/_background._background1.contentSize.width);
     else
-        _distance = 100 * (_sceneCounter - _background._background2.position.x/_background._background2.contentSize.width);
+    _distance = 100 * (_sceneCounter - _background._background2.position.x/_background._background2.contentSize.width);
     
     [(CCLabelTTF*)[self getChildByName:@"labelDistance" recursively:NO] setString:[NSString stringWithFormat:@"Metres: %d M", _distance]];
 }
 
 -(void)updateRandomGenerator {
     int distance = _distance;
-    if(distance == 200) {
-        lengthScaleMin = 6;
-        lengthScaleMax = 10;
-        distanceMin = distanceUnit;
-        distanceMax = distanceUnit * 2;
-        heightOffset = 10;
+    if (1 == level) {
+        if(distance == 200) {
+            lengthScaleMin = 6;
+            lengthScaleMax = 10;
+            distanceMin = distanceUnit;
+            distanceMax = distanceUnit * 2;
+            heightOffset = 10;
+        }
+        else if(distance == 400) {
+            lengthScaleMin = 5;
+            lengthScaleMax = 9;
+            distanceMin = distanceUnit;
+            distanceMax = distanceUnit * 2;
+            heightOffset = 20;
+        }
+        else if(distance == 600) {
+            lengthScaleMin = 4;
+            lengthScaleMax = 8;
+            distanceMin = distanceUnit;
+            distanceMax = distanceUnit * 3;
+            heightOffset = 30;
+        }
+        else if(distance == 1000) {
+            lengthScaleMin = 3;
+            lengthScaleMax = 7;
+            distanceMin = distanceUnit;
+            distanceMax = distanceUnit * 3;
+            heightOffset = 40;
+        }
+        else if(distance == 1500) {
+            lengthScaleMin = 2;
+            lengthScaleMax = 5;
+            distanceMin = distanceUnit;
+            distanceMax = distanceUnit * 3;
+            heightOffset = 50;
+        }
     }
-    else if(distance == 400) {
-        lengthScaleMin = 5;
-        lengthScaleMax = 9;
-        distanceMin = distanceUnit;
-        distanceMax = distanceUnit * 3;
-        heightOffset = 20;
+    else if(2 == level || 3 == level) {
+        if(distance == 200) {
+            lengthScaleMin = 4;
+            lengthScaleMax = 8;
+            distanceMin = distanceUnit * 2;
+            distanceMax = distanceUnit * 3;
+            heightOffset = 50;
+        }
+        else if(distance == 400) {
+            lengthScaleMin = 4;
+            lengthScaleMax = 8;
+            distanceMin = distanceUnit * 2;
+            distanceMax = distanceUnit * 3;
+            heightOffset = 50;
+        }
+        else if(distance == 600) {
+            lengthScaleMin = 3;
+            lengthScaleMax = 6;
+            distanceMin = distanceUnit * 2;
+            distanceMax = distanceUnit * 3;
+            heightOffset = 60;
+        }
+        else if(distance == 1000) {
+            lengthScaleMin = 3;
+            lengthScaleMax = 6;
+            distanceMin = distanceUnit * 2;
+            distanceMax = distanceUnit * 3;
+            heightOffset = 60;
+        }
+        else if(distance == 1500) {
+            lengthScaleMin = 2;
+            lengthScaleMax = 5;
+            distanceMin = distanceUnit * 2;
+            distanceMax = distanceUnit * 3;
+            heightOffset = 70;
+        }
     }
-    else if(distance == 600) {
-        lengthScaleMin = 4;
-        lengthScaleMax = 8;
-        distanceMin = distanceUnit;
-        distanceMax = distanceUnit * 3;
-        heightOffset = 30;
-    }
-    else if(distance == 1000) {
-        lengthScaleMin = 3;
-        lengthScaleMax = 7;
-        distanceMin = distanceUnit;
-        distanceMax = distanceUnit * 3;
-        heightOffset = 40;
-    }
-    else if(distance == 1500) {
-        lengthScaleMin = 2;
-        lengthScaleMax = 5;
-        distanceMin = distanceUnit;
-        distanceMax = distanceUnit * 3;
-        heightOffset = 50;
-    }
+    
 }
 
 -(void)applyForceWhenTouched {
-            [_robot.physicsBody applyForce:ccp(0,4.0f)];
+    [_robot.physicsBody applyForce:ccp(0,4.0f)];
 }
 
 
@@ -1721,11 +1799,11 @@
 // -----------------------------------------------------------------------
 -(void)backgroundScroll : (float)delta {
     
-//    for (float i = 0.0f; i<delta; i+=5.2f) {
-//        _background._background1.position = ccp(_background._background1.position.x - 5.2, _background._background1.position.y);
-//        _background._background2.position = ccp(_background._background2.position.x - 5.2, _background._background2.position.y);
-//        //_background._ground.position = ccp(_background._ground.position.x - .1, _groundInitialY);
-//    }
+    //    for (float i = 0.0f; i<delta; i+=5.2f) {
+    //        _background._background1.position = ccp(_background._background1.position.x - 5.2, _background._background1.position.y);
+    //        _background._background2.position = ccp(_background._background2.position.x - 5.2, _background._background2.position.y);
+    //        //_background._ground.position = ccp(_background._ground.position.x - .1, _groundInitialY);
+    //    }
     _background._background1.position = ccp(_background._background1.position.x - delta, _background._background1.position.y);
     _background._background2.position = ccp(_background._background2.position.x - delta, _background._background2.position.y);
     
@@ -1734,20 +1812,20 @@
         _background._background1.position = ccp(_background._background2.position.x + [_background._background2 boundingBox].size.width - 1, _background._background1.position.y );
         
         [_background._background1 removeAllChildrenWithCleanup:YES];
-
+        
         if (_sceneCounter==_record/100)
         {
             CCLOG(@"++++++++++++");
             [self addRecordSign:_background._background1];
         }
         _sceneCounter++;
-
+        
         
         /*CCLabelTTF *label = [CCLabelTTF labelWithString:@"Bg1" fontName:@"Verdana-Bold" fontSize:15];
-        label.positionType = CCPositionTypeNormalized;
-        label.position = ccp(0.5f, 0.5f);
-        [_background._background1 addChild:label];*/
-
+         label.positionType = CCPositionTypeNormalized;
+         label.position = ccp(0.5f, 0.5f);
+         [_background._background1 addChild:label];*/
+        
         [self generateStaticObstacles:_background._background1];
         [self generateRandomGround:_background._background1];
         
@@ -1765,11 +1843,11 @@
         }
         _sceneCounter++;
         /*
-        CCLabelTTF *label2 = [CCLabelTTF labelWithString:@"Bg2" fontName:@"Verdana-Bold" fontSize:15];
-        label2.positionType = CCPositionTypeNormalized;
-        label2.position = ccp(0.5f, 0.5f);
-        [_background._background2 addChild:label2];
-        */
+         CCLabelTTF *label2 = [CCLabelTTF labelWithString:@"Bg2" fontName:@"Verdana-Bold" fontSize:15];
+         label2.positionType = CCPositionTypeNormalized;
+         label2.position = ccp(0.5f, 0.5f);
+         [_background._background2 addChild:label2];
+         */
         [self generateStaticObstacles:_background._background2];
         [self generateRandomGround:_background._background2];
     }
@@ -1789,6 +1867,7 @@
         
         //float randomScale = [self generateRandomScale];
         float randomDistance = arc4random() % (distanceMax - distanceMin) + distanceMin;
+        //CCLOG(@"!!!!!!%d",distanceMin);
         
         spr.scaleY = 0.5;
         spr.scaleX = (arc4random() % (lengthScaleMax - lengthScaleMin) + lengthScaleMin)/10.0;
@@ -1797,7 +1876,23 @@
         int minY = lastHeight - heightOffset;
         int maxY = lastHeight + heightOffset;
         int randomY = arc4random()%(maxY-minY)+minY;
-        spr.position = ccp(x,randomY);
+        if(1 == level) {
+            spr.position = ccp(x,randomY);
+        }
+        else {
+            int randomYNew = 0;
+            if (false == upOrDown) {
+                int minYNew = (lastHeight + maxY) / 2;
+                randomYNew  = arc4random()%(maxY-minYNew)+minYNew;
+                upOrDown =  true;
+            }
+            else {
+                int maxYnew = (lastHeight + minY) / 2;
+                randomYNew  = arc4random()%(maxYnew-minY)+minY;
+                upOrDown = false;
+            }
+            spr.position = ccp(x,randomYNew);
+        }
         counter += [spr boundingBox].size.width + randomDistance;
         if(counter <= bg.contentSize.width - 1) {
             [bg addChild:spr];
@@ -1851,20 +1946,20 @@
 -(void)generateStaticObstacles : (CCSprite*)bg {
     //float pb_num = arc4random()%100/100.0f;
     
-//    [self generateThreeObstacles:bg];
-//    return;
-
+    //    [self generateThreeObstacles:bg];
+    //    return;
+    
     //if (pb_num < 0.05f) {
-        [self generateOneObstacle:bg];
-   // }
+    [self generateOneObstacle:bg];
+    // }
     //else if (pb_num < 0.45) {
-     //   [self generateTwoObstacles:bg];
+    //   [self generateTwoObstacles:bg];
     //}
     //else if (pb_num < 0.90f) {
     //    [self generateThreeObstacles:bg];
-   // }
+    // }
     //else {
-        [self generateRiskAndRewards:bg];
+    [self generateRiskAndRewards:bg];
     //}
 }
 
@@ -1895,20 +1990,20 @@
         spr.anchorPoint = ccp(0, 0);
     }
     //else if (pb_object <= 0.4f) {
-        spr = [Enemies laserHorizontalInit];
+    spr = [Enemies laserHorizontalInit];
     //}
     //else if (pb_object <= 0.70f) {
-     //   spr = [Enemies laserVerticalInit];
+    //   spr = [Enemies laserVerticalInit];
     //}
     //else if (pb_object <= 0.78f) {
-     //   spr = [Enemies laserDiagonalInit:0];
+    //   spr = [Enemies laserDiagonalInit:0];
     //}
-   // else if (pb_object <= 0.85f) {
-     //   spr = [Enemies laserDiagonalInit:1];
-   // }
-   // else {
-      //  spr = [Enemies laserRotatingInit];
-   // }
+    // else if (pb_object <= 0.85f) {
+    //   spr = [Enemies laserDiagonalInit:1];
+    // }
+    // else {
+    //  spr = [Enemies laserRotatingInit];
+    // }
     
     return spr;
 }
@@ -1965,35 +2060,35 @@
     return maxPrevX;
 }
 /*
--(void)addPortal : (CCSprite*)bg : (CCSprite*)spr {
-    float pb_portal = arc4random()%100/100.0f;
-    if ([spr.name isEqualToString:@"coinGroup"] || spr.position.x < 0) {
-        return;
-    }
-    for (CCSprite *temp in bg.children) {
-        if ([temp.name isEqualToString:@"portalIn"]) {
-            return;
-        }
-    }
-    
-    if (pb_portal < 0.1f) {
-        CCSprite *portal = [Rewards portalInInit];
-        int portalX, portalY;
-        if ([spr.name isEqualToString:@"laserRotating"]) {
-            portalX = spr.position.x + spr.contentSize.height * spr.scaleY / 2 + 40;
-        }
-        else {
-            portalX = spr.position.x + spr.contentSize.width + 70;
-        }
-        portalY = spr.position.y + portal.contentSize.height/2;
-        if (portalX > bg.contentSize.width - 70 || portalY < portal.contentSize.height / 2 || portalY > bg.contentSize.height - portal.contentSize.height / 2) {
-            return;
-        }
-        portal.position = ccp(portalX, portalY);
-        [bg addChild:portal];
-    }
-}
-*/
+ -(void)addPortal : (CCSprite*)bg : (CCSprite*)spr {
+ float pb_portal = arc4random()%100/100.0f;
+ if ([spr.name isEqualToString:@"coinGroup"] || spr.position.x < 0) {
+ return;
+ }
+ for (CCSprite *temp in bg.children) {
+ if ([temp.name isEqualToString:@"portalIn"]) {
+ return;
+ }
+ }
+ 
+ if (pb_portal < 0.1f) {
+ CCSprite *portal = [Rewards portalInInit];
+ int portalX, portalY;
+ if ([spr.name isEqualToString:@"laserRotating"]) {
+ portalX = spr.position.x + spr.contentSize.height * spr.scaleY / 2 + 40;
+ }
+ else {
+ portalX = spr.position.x + spr.contentSize.width + 70;
+ }
+ portalY = spr.position.y + portal.contentSize.height/2;
+ if (portalX > bg.contentSize.width - 70 || portalY < portal.contentSize.height / 2 || portalY > bg.contentSize.height - portal.contentSize.height / 2) {
+ return;
+ }
+ portal.position = ccp(portalX, portalY);
+ [bg addChild:portal];
+ }
+ }
+ */
 -(void)generateOneObstacle : (CCSprite*)bg {
     CCSprite *spr = [self generateRandomSprite];
     
@@ -2112,7 +2207,7 @@
     if (minX < maxX) {
         randomX = arc4random()%(maxX-minX)+minX;
         spr2.position = ccp(randomX, [self generateRandomY:spr2]);
-       // [self addPortal:bg :spr2];
+        // [self addPortal:bg :spr2];
         [bg addChild:spr2];
     }
     
@@ -2199,30 +2294,30 @@
 }
 
 /*
--(void)addButtonNormalShield
-{
-    CCSpriteFrame *frameForBtn = [CCSpriteFrame frameWithImageNamed:@"normalShieldIcon.png"];
-    CCButton *btnShield = [CCButton buttonWithTitle:nil spriteFrame:frameForBtn];
-
-    btnShield.positionType = CCPositionTypeNormalized;
-    btnShield.position = ccp(0.1f, 0.55f);
-    btnShield.name = @"btnNormalShield";
-    [btnShield setTarget:self selector:@selector(onNormalShieldClicked:)];
-    [self addChild:btnShield z:9];
-}
-
--(void)addButtonGoldenShield
-{
-    CCSpriteFrame *frameForBtn = [CCSpriteFrame frameWithImageNamed:@"goldenShieldIcon.png"];
-    CCButton *btnShield = [CCButton buttonWithTitle:nil spriteFrame:frameForBtn];
-
-    btnShield.positionType = CCPositionTypeNormalized;
-    btnShield.position = ccp(0.1f, 0.85f);
-    btnShield.name = @"btnGoldenShield";
-    [btnShield setTarget:self selector:@selector(onGoldenShieldClicked:)];
-    [self addChild:btnShield z:9];
-}
-*/
+ -(void)addButtonNormalShield
+ {
+ CCSpriteFrame *frameForBtn = [CCSpriteFrame frameWithImageNamed:@"normalShieldIcon.png"];
+ CCButton *btnShield = [CCButton buttonWithTitle:nil spriteFrame:frameForBtn];
+ 
+ btnShield.positionType = CCPositionTypeNormalized;
+ btnShield.position = ccp(0.1f, 0.55f);
+ btnShield.name = @"btnNormalShield";
+ [btnShield setTarget:self selector:@selector(onNormalShieldClicked:)];
+ [self addChild:btnShield z:9];
+ }
+ 
+ -(void)addButtonGoldenShield
+ {
+ CCSpriteFrame *frameForBtn = [CCSpriteFrame frameWithImageNamed:@"goldenShieldIcon.png"];
+ CCButton *btnShield = [CCButton buttonWithTitle:nil spriteFrame:frameForBtn];
+ 
+ btnShield.positionType = CCPositionTypeNormalized;
+ btnShield.position = ccp(0.1f, 0.85f);
+ btnShield.name = @"btnGoldenShield";
+ [btnShield setTarget:self selector:@selector(onGoldenShieldClicked:)];
+ [self addChild:btnShield z:9];
+ }
+ */
 // -----------------------------------------------------------------------
 
 -(void)dealloc {

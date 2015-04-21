@@ -19,9 +19,11 @@
 @interface GameScene : CCScene <CCPhysicsCollisionDelegate>
 
 // -----------------------------------------------------------------------
-
++ (int) Level;
++ (void) setLevel:(int)value;
 + (GameScene *)scene;
 - (id)init;
 
 // -----------------------------------------------------------------------
 @end
+

@@ -101,13 +101,26 @@
     [self addChild:bg];
     
     
-    for(int i=1;i<=3;i++){
-        CCButton *startButton = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"start.png"]];
-        startButton.positionType = CCPositionTypeNormalized;
-        startButton.position = ccp(0.5f, 0.2*i);
-        [startButton setTarget:self selector:@selector(onLevelsClicked:)];
-        [self addChild:startButton];
-    }
+    //level1
+    CCButton *startButton1 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"start.png"]];
+    startButton1.positionType = CCPositionTypeNormalized;
+    startButton1.position = ccp(0.5f, 0.2*3);
+    [startButton1 setTarget:self selector:@selector(onLevelsClicked1:)];
+    [self addChild:startButton1];
+    
+    //level2
+    CCButton *startButton2 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"start.png"]];
+    startButton2.positionType = CCPositionTypeNormalized;
+    startButton2.position = ccp(0.5f, 0.2*2);
+    [startButton2 setTarget:self selector:@selector(onLevelsClicked2:)];
+    [self addChild:startButton2];
+    
+    //level3
+    CCButton *startButton3 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"start.png"]];
+    startButton3.positionType = CCPositionTypeNormalized;
+    startButton3.position = ccp(0.5f, 0.2*1);
+    [startButton3 setTarget:self selector:@selector(onLevelsClicked3:)];
+    [self addChild:startButton3];
     
     
     
@@ -115,17 +128,23 @@
     //    [[CCDirector sharedDirector] replaceScene:[GameScene scene] withTransition:[CCTransition transitionFadeWithDuration:0.5f]];
 }
 
-- (void)onLevelsClicked:(id)sender
+- (void)onLevelsClicked1:(id)sender
 {
+    [GameScene setLevel:1];
     [[CCDirector sharedDirector] replaceScene:[GameScene scene]
                                withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:0.5f]];
-    //    if(level==1){
-    //
-    //    }else if(level==2){
-    //
-    //    }else{
-    //
-    //    }
+}
+- (void)onLevelsClicked2:(id)sender
+{
+    [GameScene setLevel:2];
+    [[CCDirector sharedDirector] replaceScene:[GameScene scene]
+                               withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:0.5f]];
+}
+- (void)onLevelsClicked3:(id)sender
+{
+    [GameScene setLevel:3];
+    [[CCDirector sharedDirector] replaceScene:[GameScene scene]
+                               withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:0.5f]];
 }
 
 - (void)onSettingsClicked:(id)sender

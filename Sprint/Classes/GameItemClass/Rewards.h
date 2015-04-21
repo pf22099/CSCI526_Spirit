@@ -24,4 +24,5 @@
 +(CCSprite*)USCShapeStars;
 
 
+
 @end

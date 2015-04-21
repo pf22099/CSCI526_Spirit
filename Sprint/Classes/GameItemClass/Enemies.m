@@ -12,6 +12,7 @@
 #import "cocos2d-ui.h"
 #import "CCAnimation.h"
 #import "CCAnimationCache.h"
+#import "GameScene.h"
 
 @implementation Enemies
 
@@ -22,21 +23,36 @@
 +(CCSprite*)missileInit : (int)type
 {
     CCSprite *missile;
-    
+    int level=[GameScene Level];
     switch (type) {
         case MISSILE_NORMAL:
         {
-            [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"missile_2.plist"];
-            CCSpriteFrame *initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"missile_2-1.png"];
-            
-            
+            CCSpriteFrame *initialSpriteFrame;
+            if(level==1){
+                [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"missile_2.plist"];
+                initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"missile_2-1.png"];
+            }else if(level==2){
+                [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"missile_3.plist"];
+                initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"missile_3-1.png"];
+            }else{
+                [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"missile_3.plist"];
+                initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"missile_3-1.png"];
+            }
             missile = [CCSprite spriteWithSpriteFrame:initialSpriteFrame];
             if (missile) {
                 NSMutableArray *animationFramesRun = [NSMutableArray array];
                 
                 for(int i = 1; i <= 10; ++i) {
-                    [animationFramesRun addObject:
-                     [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"missile_2-%d.png", i]]];
+                    if(level==1){
+                        [animationFramesRun addObject:
+                         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"missile_2-%d.png", i]]];
+                    }else if(level==2){
+                        [animationFramesRun addObject:
+                         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"missile_3-%d.png", i]]];
+                    }else{
+                        
+                    }
+                    
                 }
                 
                 //Create an animation from the set of frames you created earlier
@@ -95,8 +111,18 @@
 }
 
 +(CCSprite*)laserHorizontalInit {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"laserHorizontal.plist"];
-    CCSpriteFrame *initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"laserHorizontal-1.png"];
+    int level=[GameScene Level];
+    CCSpriteFrame *initialSpriteFrame;
+    if(level==1){
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"laserHorizontal.plist"];
+        initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"laserHorizontal-1.png"];
+    }else if(level==2){
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"laserHorizontal1.plist"];
+        initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"laserHorizontal1-1.png"];
+    }else{
+        
+    }
+//    CCSpriteFrame *initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"laserHorizontal-1.png"];
     
     
     CCSprite *laserHorizontal = [CCSprite spriteWithSpriteFrame:initialSpriteFrame];
@@ -104,8 +130,16 @@
         NSMutableArray *animationFramesRun = [NSMutableArray array];
         
         for(int i = 1; i <= 8; ++i) {
-            [animationFramesRun addObject:
-             [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"laserHorizontal-%d.png", i]]];
+            if(level==1){
+                [animationFramesRun addObject:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"laserHorizontal-%d.png", i]]];
+            }else if(level==2){
+                [animationFramesRun addObject:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"laserHorizontal1-%d.png", i]]];
+            }else{
+                
+            }
+            
         }
         
         //Create an animation from the set of frames you created earlier

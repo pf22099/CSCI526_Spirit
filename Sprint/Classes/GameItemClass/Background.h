@@ -25,3 +25,4 @@
 +(CCSprite*)generateFlyingGround;
 
 @end
+

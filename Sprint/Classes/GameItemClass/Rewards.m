@@ -10,6 +10,7 @@
 #import "Enemies.h"
 #import "CCAnimation.h"
 #import "CCAnimationCache.h"
+#import "GameScene.h"
 
 @implementation Rewards
 
@@ -102,7 +103,16 @@
 }
 
 +(CCSprite*)starInit {
-    CCSprite *star = [CCSprite spriteWithImageNamed:@"star.png"];
+    int level=[GameScene Level];
+    
+    CCSprite *star;
+    if(level==1)
+        star = [CCSprite spriteWithImageNamed:@"star.png"];
+    else if(level==2){
+        star = [CCSprite spriteWithImageNamed:@"star_level2.png"];
+    }else{
+        star = [CCSprite spriteWithImageNamed:@"star_level2.png"];
+    }
     star.anchorPoint = ccp(0, 0);
     [star setPhysicsBody:[CCPhysicsBody bodyWithRect:star.boundingBox cornerRadius:0]];
     star.physicsBody.type = CCPhysicsBodyTypeStatic;
