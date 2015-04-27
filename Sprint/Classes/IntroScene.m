@@ -47,6 +47,13 @@
     bg.position = ccp(0, 0);
     [self addChild:bg];
     
+    
+    //add tile background
+    CCSprite *title = [CCSprite spriteWithImageNamed:@"title3.png"];
+    title.name=@"title";
+    title.positionType = CCPositionTypeNormalized;
+    title.position = ccp(0.5f, 0.6f);
+    [self addChild:title];
     /*
      // Hello world
      CCLabelTTF *label = [CCLabelTTF labelWithString:@"Metaland" fontName:@"Chalkduster" fontSize:36.0f];
@@ -95,6 +102,7 @@
     
     [self removeChildByName:@"bg"];
     [self removeChildByName:@"start_button"];
+    [self removeChildByName:@"title"];
     CCSprite *bg = [CCSprite spriteWithImageNamed:@"main_bg_copy.png"];
     bg.anchorPoint = CGPointZero;
     bg.position = ccp(0, 0);
@@ -102,21 +110,21 @@
     
     
     //level1
-    CCButton *startButton1 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"start.png"]];
+    CCButton *startButton1 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"easy.png"]];
     startButton1.positionType = CCPositionTypeNormalized;
     startButton1.position = ccp(0.5f, 0.2*3);
     [startButton1 setTarget:self selector:@selector(onLevelsClicked1:)];
     [self addChild:startButton1];
     
     //level2
-    CCButton *startButton2 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"start.png"]];
+    CCButton *startButton2 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"medium.png"]];
     startButton2.positionType = CCPositionTypeNormalized;
     startButton2.position = ccp(0.5f, 0.2*2);
     [startButton2 setTarget:self selector:@selector(onLevelsClicked2:)];
     [self addChild:startButton2];
     
     //level3
-    CCButton *startButton3 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"start.png"]];
+    CCButton *startButton3 = [CCButton buttonWithTitle:nil spriteFrame:[CCSpriteFrame frameWithImageNamed:@"hard.png"]];
     startButton3.positionType = CCPositionTypeNormalized;
     startButton3.position = ccp(0.5f, 0.2*1);
     [startButton3 setTarget:self selector:@selector(onLevelsClicked3:)];

@@ -72,19 +72,41 @@ CCSprite *sprite;
             }
         }
             break;
-            
+        
+        case CHARACTER_ROBOT_JUMP:
+         {
+             [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"jump.plist"];
+             initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"jump-1.png"];
+             sprite = [CCSprite spriteWithSpriteFrame:initialSpriteFrame];
+             if (sprite) {
+                 NSMutableArray *animationFramesRun = [NSMutableArray array];
+                 
+                 for(int i = 1; i <= 7; ++i) {
+                     [animationFramesRun addObject:
+                      [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"jump-%d.png", i]]];
+                 }
+                 
+                 //Create an animation from the set of frames you created earlier
+                 CCAnimation *running = [CCAnimation animationWithSpriteFrames: animationFramesRun delay:0.1f];
+                 
+                 //Create an action with the animation that can then be assigned to a sprite
+                 CCActionRepeatForever *run = [CCActionRepeatForever actionWithAction: [CCActionAnimate actionWithAnimation:running]];
+                 [sprite runAction:run];
+             }
+         }
+            break;
         case CHARACTER_ROBOT_FALL:
         case CHARACTER_SHADOW_FALL:
         {
-            [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"player_2.plist"];
-            initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"player_2-1.png"];
+            [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"fall.plist"];
+            initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"fall-1.png"];
             sprite = [CCSprite spriteWithSpriteFrame:initialSpriteFrame];
             if (sprite) {
                 NSMutableArray *animationFramesRun = [NSMutableArray array];
                 
                 for(int i = 1; i <= 7; ++i) {
                     [animationFramesRun addObject:
-                     [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"player_2-%d.png", i]]];
+                     [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"fall-%d.png", i]]];
                 }
                 
                 //Create an animation from the set of frames you created earlier
@@ -96,6 +118,28 @@ CCSprite *sprite;
             }
         }
 
+            break;
+        case CHARACTER_ROBOT_RUSH:
+        {
+            [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"rush.plist"];
+            initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"rush-1.png"];
+            sprite = [CCSprite spriteWithSpriteFrame:initialSpriteFrame];
+            if (sprite) {
+                NSMutableArray *animationFramesRun = [NSMutableArray array];
+                
+                for(int i = 1; i <= 10; ++i) {
+                    [animationFramesRun addObject:
+                     [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"rush-%d.png", i]]];
+                }
+                
+                //Create an animation from the set of frames you created earlier
+                CCAnimation *running = [CCAnimation animationWithSpriteFrames: animationFramesRun delay:0.1f];
+                
+                //Create an action with the animation that can then be assigned to a sprite
+                CCActionRepeatForever *run = [CCActionRepeatForever actionWithAction: [CCActionAnimate actionWithAnimation:running]];
+                [sprite runAction:run];
+            }
+        }
             break;
             
         case CHARACTER_ROBOT_DIE:
@@ -166,6 +210,7 @@ CCSprite *sprite;
             {
                 [Robot initializeSpriteFrames: CHARACTER_ROBOT_RUN];
                 sprite.physicsBody.collisionType = @"robotCollision";
+                sprite.physicsBody.collisionGroup = @"gameSceneGroup";
                 //sprite.scale = 1.2f;
             }
                 break;
@@ -183,6 +228,7 @@ CCSprite *sprite;
             {
                 [Robot initializeSpriteFrames: CHARACTER_ROBOT_FLY];
                 sprite.physicsBody.collisionType = @"robotCollision";
+                sprite.physicsBody.collisionGroup = @"gameSceneGroup";
                 //sprite.scale = 1.2f;
             }
                 break;
@@ -196,10 +242,26 @@ CCSprite *sprite;
                 sprite.scaleY = -1;
             }
                 break;
+                
+            case CHARACTER_ROBOT_RUSH:
+            {
+                [Robot initializeSpriteFrames: CHARACTER_ROBOT_RUSH];
+                sprite.physicsBody.collisionType = @"robotCollision";
+                sprite.physicsBody.collisionGroup = @"gameSceneGroup";
+            }
+                break;
+            case CHARACTER_ROBOT_JUMP:
+            {
+                [Robot initializeSpriteFrames: CHARACTER_ROBOT_JUMP];
+                sprite.physicsBody.collisionType = @"robotCollision";
+                sprite.physicsBody.collisionGroup = @"gameSceneGroup";
+            }
+                break;
             case CHARACTER_ROBOT_FALL:
             {
                 [Robot initializeSpriteFrames: CHARACTER_ROBOT_FALL];
                 sprite.physicsBody.collisionType = @"robotCollision";
+                sprite.physicsBody.collisionGroup = @"gameSceneGroup";
                 //sprite.scale = 1.2f;
             }
                 break;

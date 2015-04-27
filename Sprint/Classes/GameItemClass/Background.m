@@ -70,14 +70,13 @@
 
 -(void)createBackgroundSprite {
     int level=[GameScene Level];
-    CCLOG(@"++++++%d",level);
     if(level==1){
         _background1 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree.png"];
     }else if(level==2){
         _background1 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree_level2.png"];
 
     }else{
-        
+         _background1 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree_level3.png"];
     }
     _background1.anchorPoint = CGPointZero;
     _background1.position = CGPointZero;
@@ -94,7 +93,7 @@
         _background2 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree_level2.png"];
         
     }else{
-        
+        _background2 = [CCSprite spriteWithImageNamed:@"backgroundGameSceneFinalThree_level3.png"];
     }
     _background2.anchorPoint = CGPointZero;
     _background2.position = ccp(_background1.contentSize.width-1, 0);
@@ -122,8 +121,16 @@
 }
 
 +(CCSprite*)generateFlyingGround {
+    int level=[GameScene Level];
     CCSprite *spr;
-    spr = [CCSprite spriteWithImageNamed:@"fly_ground.png"];
+    if(level==1){
+        spr = [CCSprite spriteWithImageNamed:@"fly_ground.png"];
+    }else if(level==2){
+        spr = [CCSprite spriteWithImageNamed:@"fly_ground_level2.png"];
+    }else{
+        spr = [CCSprite spriteWithImageNamed:@"bar.png"];
+    }
+    
     spr.anchorPoint = ccp(0, 0);
     [spr setPhysicsBody:[CCPhysicsBody bodyWithRect:spr.boundingBox cornerRadius:0]];
     spr.physicsBody.type = CCPhysicsBodyTypeStatic;

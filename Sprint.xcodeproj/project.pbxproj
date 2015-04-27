@@ -31,7 +31,7 @@
 		22D21FEC19885B4300D8341D /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D21FEB19885B4300D8341D /* start.png */; };
 		34D404941A9E39F0005F9B56 /* backgroundGameSceneFinalThree.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D404931A9E39F0005F9B56 /* backgroundGameSceneFinalThree.png */; };
 		34D404961A9E64FD005F9B56 /* robot_boost.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D404951A9E64FD005F9B56 /* robot_boost.png */; };
-		3F60ED711AA8226F00E66B51 /* jump.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F60ED701AA8226F00E66B51 /* jump.png */; };
+		3F60ED711AA8226F00E66B51 /* jump_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F60ED701AA8226F00E66B51 /* jump_button.png */; };
 		3F7A0A6F1A9EDA5400E0D92C /* fly_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7A0A6E1A9EDA5400E0D92C /* fly_ground.png */; };
 		3F7A0A741A9EF0B300E0D92C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7A0A721A9EF0B300E0D92C /* Default-568h@2x.png */; };
 		3F7A0A751A9EF0B300E0D92C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7A0A731A9EF0B300E0D92C /* Default@2x.png */; };
@@ -231,22 +231,41 @@
 		8CFDCE40198635BD00DC7822 /* portalIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CFDCE3C198635BD00DC7822 /* portalIn.png */; };
 		8CFDCE41198635BD00DC7822 /* portalOut.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CFDCE3D198635BD00DC7822 /* portalOut.plist */; };
 		8CFDCE42198635BD00DC7822 /* portalOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CFDCE3E198635BD00DC7822 /* portalOut.png */; };
+		A15A25941AE5B484003F76B8 /* missile_3.plist in Resources */ = {isa = PBXBuildFile; fileRef = A15A25921AE5B484003F76B8 /* missile_3.plist */; };
+		A15A25951AE5B484003F76B8 /* missile_3.png in Resources */ = {isa = PBXBuildFile; fileRef = A15A25931AE5B484003F76B8 /* missile_3.png */; };
+		A1839D011AE854BB00B0367D /* bar.png in Resources */ = {isa = PBXBuildFile; fileRef = A1839D001AE854BB00B0367D /* bar.png */; };
+		A1839D031AE854CC00B0367D /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = A1839D021AE854CC00B0367D /* title.png */; };
+		A1839D051AE85C9D00B0367D /* fly_ground_level2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1839D041AE85C9D00B0367D /* fly_ground_level2.png */; };
+		A1839D071AE85CF100B0367D /* title3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1839D061AE85CF100B0367D /* title3.png */; };
 		A1C775A41AE2D9AA00E1A82C /* backgroundGameSceneFinalThree_level2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1C775A31AE2D9AA00E1A82C /* backgroundGameSceneFinalThree_level2.png */; };
 		A1C775A61AE2D9F500E1A82C /* star_level2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1C775A51AE2D9F500E1A82C /* star_level2.png */; };
 		A1C775A91AE2DA0000E1A82C /* laserHorizontal1.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1C775A71AE2DA0000E1A82C /* laserHorizontal1.plist */; };
 		A1C775AA1AE2DA0000E1A82C /* laserHorizontal1.png in Resources */ = {isa = PBXBuildFile; fileRef = A1C775A81AE2DA0000E1A82C /* laserHorizontal1.png */; };
 		A1C775AC1AE2DA5900E1A82C /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C775AB1AE2DA5900E1A82C /* GameOverScene.m */; };
 		A1C775B21AE2DBA100E1A82C /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C775B11AE2DBA100E1A82C /* IntroScene.m */; };
-		C9274C851AAAAE1A00F11FC4 /* player_2.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9274C831AAAAE1A00F11FC4 /* player_2.plist */; };
-		C9274C861AAAAE1A00F11FC4 /* player_2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9274C841AAAAE1A00F11FC4 /* player_2.png */; };
-		C9274C881AAAC08900F11FC4 /* Rush.png in Resources */ = {isa = PBXBuildFile; fileRef = C9274C871AAAC08900F11FC4 /* Rush.png */; };
-		C99BCCA31AE5A6A2003F9F3B /* coins.png in Resources */ = {isa = PBXBuildFile; fileRef = C99BCCA21AE5A6A2003F9F3B /* coins.png */; };
-		C99BCCA51AE5B3FD003F9F3B /* missile_3.png in Resources */ = {isa = PBXBuildFile; fileRef = C99BCCA41AE5B3FD003F9F3B /* missile_3.png */; };
-		C99BCCA71AE5B45B003F9F3B /* missile_3.plist in Resources */ = {isa = PBXBuildFile; fileRef = C99BCCA61AE5B45B003F9F3B /* missile_3.plist */; };
+		C912F3D31AEABDEE00700EDD /* bggameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3C61AEABDEE00700EDD /* bggameover.png */; };
+		C912F3D41AEABDEE00700EDD /* easy.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3C71AEABDEE00700EDD /* easy.png */; };
+		C912F3D51AEABDEE00700EDD /* fall.plist in Resources */ = {isa = PBXBuildFile; fileRef = C912F3C81AEABDEE00700EDD /* fall.plist */; };
+		C912F3D61AEABDEE00700EDD /* fall.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3C91AEABDEE00700EDD /* fall.png */; };
+		C912F3D71AEABDEE00700EDD /* jump.plist in Resources */ = {isa = PBXBuildFile; fileRef = C912F3CA1AEABDEE00700EDD /* jump.plist */; };
+		C912F3D81AEABDEE00700EDD /* jump.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3CB1AEABDEE00700EDD /* jump.png */; };
+		C912F3D91AEABDEE00700EDD /* laserHorizontal4.plist in Resources */ = {isa = PBXBuildFile; fileRef = C912F3CC1AEABDEE00700EDD /* laserHorizontal4.plist */; };
+		C912F3DA1AEABDEE00700EDD /* laserHorizontal4.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3CD1AEABDEE00700EDD /* laserHorizontal4.png */; };
+		C912F3DB1AEABDEE00700EDD /* medium.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3CE1AEABDEE00700EDD /* medium.png */; };
+		C912F3DC1AEABDEE00700EDD /* missile_4.plist in Resources */ = {isa = PBXBuildFile; fileRef = C912F3CF1AEABDEE00700EDD /* missile_4.plist */; };
+		C912F3DD1AEABDEE00700EDD /* missile_4.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3D01AEABDEE00700EDD /* missile_4.png */; };
+		C912F3DE1AEABDEE00700EDD /* player_2.plist in Resources */ = {isa = PBXBuildFile; fileRef = C912F3D11AEABDEE00700EDD /* player_2.plist */; };
+		C912F3DF1AEABDEE00700EDD /* player_2.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3D21AEABDEE00700EDD /* player_2.png */; };
+		C912F3E31AEABE6C00700EDD /* backgroundGameSceneFinalThree_level3.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3E01AEABE6C00700EDD /* backgroundGameSceneFinalThree_level3.png */; };
+		C912F3E41AEABE6C00700EDD /* coins.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3E11AEABE6C00700EDD /* coins.png */; };
+		C912F3E51AEABE6C00700EDD /* star_level3.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3E21AEABE6C00700EDD /* star_level3.png */; };
+		C912F3E71AEABEAD00700EDD /* hard.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3E61AEABEAD00700EDD /* hard.png */; };
+		C912F3F21AEAC56B00700EDD /* rush.plist in Resources */ = {isa = PBXBuildFile; fileRef = C912F3F01AEAC56B00700EDD /* rush.plist */; };
+		C912F3F31AEAC56B00700EDD /* rush.png in Resources */ = {isa = PBXBuildFile; fileRef = C912F3F11AEAC56B00700EDD /* rush.png */; };
+		C9274C881AAAC08900F11FC4 /* rush_Button.png in Resources */ = {isa = PBXBuildFile; fileRef = C9274C871AAAC08900F11FC4 /* rush_Button.png */; };
 		C9D1D27F1ACA0D6400AFC947 /* main_bg_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = C9D1D27E1ACA0D6400AFC947 /* main_bg_copy.png */; };
 		E3280BBF198459490076DBC2 /* player_4.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3280BBD198459490076DBC2 /* player_4.plist */; };
 		E3280BC0198459490076DBC2 /* player_4.png in Resources */ = {isa = PBXBuildFile; fileRef = E3280BBE198459490076DBC2 /* player_4.png */; };
-		E34D46181988473300AAF73E /* bggameover.png in Resources */ = {isa = PBXBuildFile; fileRef = E34D46171988473300AAF73E /* bggameover.png */; };
 		E35581BE19860E0700FE8F22 /* game_over.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581BC19860E0700FE8F22 /* game_over.png */; };
 		E35582131986158300FE8F22 /* Default 2.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581C81986158300FE8F22 /* Default 2.png */; };
 		E35582141986158300FE8F22 /* Default-568h@2x 2.png in Resources */ = {isa = PBXBuildFile; fileRef = E35581C91986158300FE8F22 /* Default-568h@2x 2.png */; };
@@ -353,7 +372,7 @@
 		22D21FEB19885B4300D8341D /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 		34D404931A9E39F0005F9B56 /* backgroundGameSceneFinalThree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundGameSceneFinalThree.png; sourceTree = "<group>"; };
 		34D404951A9E64FD005F9B56 /* robot_boost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robot_boost.png; sourceTree = "<group>"; };
-		3F60ED701AA8226F00E66B51 /* jump.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jump.png; sourceTree = "<group>"; };
+		3F60ED701AA8226F00E66B51 /* jump_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jump_button.png; sourceTree = "<group>"; };
 		3F7A0A6E1A9EDA5400E0D92C /* fly_ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fly_ground.png; sourceTree = "<group>"; };
 		3F7A0A721A9EF0B300E0D92C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3F7A0A731A9EF0B300E0D92C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -768,6 +787,12 @@
 		8CFDCE3C198635BD00DC7822 /* portalIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = portalIn.png; sourceTree = "<group>"; };
 		8CFDCE3D198635BD00DC7822 /* portalOut.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = portalOut.plist; sourceTree = "<group>"; };
 		8CFDCE3E198635BD00DC7822 /* portalOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = portalOut.png; sourceTree = "<group>"; };
+		A15A25921AE5B484003F76B8 /* missile_3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = missile_3.plist; path = Resources/missile_3.plist; sourceTree = "<group>"; };
+		A15A25931AE5B484003F76B8 /* missile_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = missile_3.png; path = Resources/missile_3.png; sourceTree = "<group>"; };
+		A1839D001AE854BB00B0367D /* bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bar.png; path = Resources/bar.png; sourceTree = "<group>"; };
+		A1839D021AE854CC00B0367D /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = Resources/title.png; sourceTree = "<group>"; };
+		A1839D041AE85C9D00B0367D /* fly_ground_level2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fly_ground_level2.png; path = Resources/fly_ground_level2.png; sourceTree = "<group>"; };
+		A1839D061AE85CF100B0367D /* title3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title3.png; path = Resources/title3.png; sourceTree = "<group>"; };
 		A1C775A31AE2D9AA00E1A82C /* backgroundGameSceneFinalThree_level2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundGameSceneFinalThree_level2.png; sourceTree = "<group>"; };
 		A1C775A51AE2D9F500E1A82C /* star_level2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_level2.png; sourceTree = "<group>"; };
 		A1C775A71AE2DA0000E1A82C /* laserHorizontal1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = laserHorizontal1.plist; sourceTree = "<group>"; };
@@ -775,16 +800,29 @@
 		A1C775AB1AE2DA5900E1A82C /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverScene.m; path = Classes/GameOverScene.m; sourceTree = "<group>"; };
 		A1C775B01AE2DBA100E1A82C /* IntroScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntroScene.h; path = Classes/IntroScene.h; sourceTree = "<group>"; };
 		A1C775B11AE2DBA100E1A82C /* IntroScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IntroScene.m; path = Classes/IntroScene.m; sourceTree = "<group>"; };
-		C9274C831AAAAE1A00F11FC4 /* player_2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = player_2.plist; path = Resources/player_2.plist; sourceTree = "<group>"; };
-		C9274C841AAAAE1A00F11FC4 /* player_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player_2.png; path = Resources/player_2.png; sourceTree = "<group>"; };
-		C9274C871AAAC08900F11FC4 /* Rush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rush.png; sourceTree = "<group>"; };
-		C99BCCA21AE5A6A2003F9F3B /* coins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coins.png; sourceTree = "<group>"; };
-		C99BCCA41AE5B3FD003F9F3B /* missile_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = missile_3.png; path = Resources/missile_3.png; sourceTree = "<group>"; };
-		C99BCCA61AE5B45B003F9F3B /* missile_3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = missile_3.plist; path = Resources/missile_3.plist; sourceTree = "<group>"; };
+		C912F3C61AEABDEE00700EDD /* bggameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bggameover.png; path = Resources/bggameover.png; sourceTree = "<group>"; };
+		C912F3C71AEABDEE00700EDD /* easy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = easy.png; path = Resources/easy.png; sourceTree = "<group>"; };
+		C912F3C81AEABDEE00700EDD /* fall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = fall.plist; path = Resources/fall.plist; sourceTree = "<group>"; };
+		C912F3C91AEABDEE00700EDD /* fall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fall.png; path = Resources/fall.png; sourceTree = "<group>"; };
+		C912F3CA1AEABDEE00700EDD /* jump.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = jump.plist; path = Resources/jump.plist; sourceTree = "<group>"; };
+		C912F3CB1AEABDEE00700EDD /* jump.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = jump.png; path = Resources/jump.png; sourceTree = "<group>"; };
+		C912F3CC1AEABDEE00700EDD /* laserHorizontal4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = laserHorizontal4.plist; path = Resources/laserHorizontal4.plist; sourceTree = "<group>"; };
+		C912F3CD1AEABDEE00700EDD /* laserHorizontal4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = laserHorizontal4.png; path = Resources/laserHorizontal4.png; sourceTree = "<group>"; };
+		C912F3CE1AEABDEE00700EDD /* medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = medium.png; path = Resources/medium.png; sourceTree = "<group>"; };
+		C912F3CF1AEABDEE00700EDD /* missile_4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = missile_4.plist; path = Resources/missile_4.plist; sourceTree = "<group>"; };
+		C912F3D01AEABDEE00700EDD /* missile_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = missile_4.png; path = Resources/missile_4.png; sourceTree = "<group>"; };
+		C912F3D11AEABDEE00700EDD /* player_2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = player_2.plist; path = Resources/player_2.plist; sourceTree = "<group>"; };
+		C912F3D21AEABDEE00700EDD /* player_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player_2.png; path = Resources/player_2.png; sourceTree = "<group>"; };
+		C912F3E01AEABE6C00700EDD /* backgroundGameSceneFinalThree_level3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundGameSceneFinalThree_level3.png; sourceTree = "<group>"; };
+		C912F3E11AEABE6C00700EDD /* coins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coins.png; sourceTree = "<group>"; };
+		C912F3E21AEABE6C00700EDD /* star_level3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_level3.png; sourceTree = "<group>"; };
+		C912F3E61AEABEAD00700EDD /* hard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hard.png; path = Sprint/Resources/hard.png; sourceTree = SOURCE_ROOT; };
+		C912F3F01AEAC56B00700EDD /* rush.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = rush.plist; path = Resources/rush.plist; sourceTree = "<group>"; };
+		C912F3F11AEAC56B00700EDD /* rush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rush.png; path = Resources/rush.png; sourceTree = "<group>"; };
+		C9274C871AAAC08900F11FC4 /* rush_Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rush_Button.png; sourceTree = "<group>"; };
 		C9D1D27E1ACA0D6400AFC947 /* main_bg_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_bg_copy.png; path = Resources/main_bg_copy.png; sourceTree = "<group>"; };
 		E3280BBD198459490076DBC2 /* player_4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = player_4.plist; path = Resources/player_4.plist; sourceTree = "<group>"; };
 		E3280BBE198459490076DBC2 /* player_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player_4.png; path = Resources/player_4.png; sourceTree = "<group>"; };
-		E34D46171988473300AAF73E /* bggameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bggameover.png; path = Resources/bggameover.png; sourceTree = "<group>"; };
 		E35581BC19860E0700FE8F22 /* game_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_over.png; path = Resources/game_over.png; sourceTree = "<group>"; };
 		E35581C81986158300FE8F22 /* Default 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default 2.png"; path = "Resources/Default 2.png"; sourceTree = "<group>"; };
 		E35581C91986158300FE8F22 /* Default-568h@2x 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x 2.png"; path = "Resources/Default-568h@2x 2.png"; sourceTree = "<group>"; };
@@ -974,13 +1012,29 @@
 		8CE84D3D1957D17200716C96 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C99BCCA61AE5B45B003F9F3B /* missile_3.plist */,
-				C99BCCA41AE5B3FD003F9F3B /* missile_3.png */,
+				C912F3F01AEAC56B00700EDD /* rush.plist */,
+				C912F3F11AEAC56B00700EDD /* rush.png */,
+				A1839D061AE85CF100B0367D /* title3.png */,
+				A1839D041AE85C9D00B0367D /* fly_ground_level2.png */,
+				C912F3C61AEABDEE00700EDD /* bggameover.png */,
+				C912F3C71AEABDEE00700EDD /* easy.png */,
+				C912F3C81AEABDEE00700EDD /* fall.plist */,
+				C912F3C91AEABDEE00700EDD /* fall.png */,
+				C912F3CA1AEABDEE00700EDD /* jump.plist */,
+				C912F3CB1AEABDEE00700EDD /* jump.png */,
+				C912F3CC1AEABDEE00700EDD /* laserHorizontal4.plist */,
+				C912F3CD1AEABDEE00700EDD /* laserHorizontal4.png */,
+				C912F3CE1AEABDEE00700EDD /* medium.png */,
+				C912F3CF1AEABDEE00700EDD /* missile_4.plist */,
+				C912F3D01AEABDEE00700EDD /* missile_4.png */,
+				C912F3D11AEABDEE00700EDD /* player_2.plist */,
+				C912F3D21AEABDEE00700EDD /* player_2.png */,
+				A1839D021AE854CC00B0367D /* title.png */,
+				A1839D001AE854BB00B0367D /* bar.png */,
+				A15A25921AE5B484003F76B8 /* missile_3.plist */,
+				A15A25931AE5B484003F76B8 /* missile_3.png */,
 				C9D1D27E1ACA0D6400AFC947 /* main_bg_copy.png */,
-				C9274C831AAAAE1A00F11FC4 /* player_2.plist */,
-				C9274C841AAAAE1A00F11FC4 /* player_2.png */,
 				34D404951A9E64FD005F9B56 /* robot_boost.png */,
-				E34D46171988473300AAF73E /* bggameover.png */,
 				E367FCA11988117E00A31F82 /* character.png */,
 				E367FC9F19880F0300A31F82 /* gameoverscene.png */,
 				E367FC9D19880EA000A31F82 /* main_bg.png */,
@@ -1782,13 +1836,15 @@
 		E35581E51986158300FE8F22 /* Img_Game */ = {
 			isa = PBXGroup;
 			children = (
-				C99BCCA21AE5A6A2003F9F3B /* coins.png */,
+				C912F3E01AEABE6C00700EDD /* backgroundGameSceneFinalThree_level3.png */,
+				C912F3E11AEABE6C00700EDD /* coins.png */,
+				C912F3E21AEABE6C00700EDD /* star_level3.png */,
 				A1C775A71AE2DA0000E1A82C /* laserHorizontal1.plist */,
 				A1C775A81AE2DA0000E1A82C /* laserHorizontal1.png */,
 				A1C775A51AE2D9F500E1A82C /* star_level2.png */,
 				A1C775A31AE2D9AA00E1A82C /* backgroundGameSceneFinalThree_level2.png */,
-				C9274C871AAAC08900F11FC4 /* Rush.png */,
-				3F60ED701AA8226F00E66B51 /* jump.png */,
+				C9274C871AAAC08900F11FC4 /* rush_Button.png */,
+				3F60ED701AA8226F00E66B51 /* jump_button.png */,
 				3F7A0A6E1A9EDA5400E0D92C /* fly_ground.png */,
 				34D404931A9E39F0005F9B56 /* backgroundGameSceneFinalThree.png */,
 				ED63634C19882A9200A89419 /* robot_fall.png */,
@@ -1809,6 +1865,7 @@
 				E35581F61986158300FE8F22 /* normalShield.png */,
 				E35581F71986158300FE8F22 /* pause.png */,
 				E35581F81986158300FE8F22 /* pd_ground.png */,
+				C912F3E61AEABEAD00700EDD /* hard.png */,
 				E35581F91986158300FE8F22 /* pd_tilemap4.png */,
 				8CFDCE3B198635BD00DC7822 /* portalIn.plist */,
 				8CFDCE3C198635BD00DC7822 /* portalIn.png */,
@@ -1924,6 +1981,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E355823F1986158300FE8F22 /* pause.png in Resources */,
+				C912F3F31AEAC56B00700EDD /* rush.png in Resources */,
 				E355824F1986158300FE8F22 /* background_PortalScene.png in Resources */,
 				E35582331986158300FE8F22 /* goldenShield.png in Resources */,
 				E35581BE19860E0700FE8F22 /* game_over.png in Resources */,
@@ -1951,44 +2009,50 @@
 				E35582471986158300FE8F22 /* record.png in Resources */,
 				E35582451986158300FE8F22 /* progressBar.png in Resources */,
 				E3280BBF198459490076DBC2 /* player_4.plist in Resources */,
+				C912F3DA1AEABDEE00700EDD /* laserHorizontal4.png in Resources */,
 				220DFE25197E1BE700271A0E /* player_3.png in Resources */,
 				E35582181986158300FE8F22 /* Icon-72.png in Resources */,
-				C9274C861AAAAE1A00F11FC4 /* player_2.png in Resources */,
 				E355822A1986158300FE8F22 /* s2_6.png in Resources */,
+				C912F3D71AEABDEE00700EDD /* jump.plist in Resources */,
 				E355821F1986158300FE8F22 /* Icon-Small@2x.png in Resources */,
 				22D21FDB19876DC500D8341D /* coin_1.plist in Resources */,
+				A1839D051AE85C9D00B0367D /* fly_ground_level2.png in Resources */,
+				C912F3E51AEABE6C00700EDD /* star_level3.png in Resources */,
 				220DFE20197E1BE700271A0E /* missile_1.plist in Resources */,
 				3F7A0A771A9EF0D600E0D92C /* MetaLand Icon_iTunesArtwork@2x.png in Resources */,
 				E355821B1986158300FE8F22 /* Icon-76@2x.png in Resources */,
+				C912F3E31AEABE6C00700EDD /* backgroundGameSceneFinalThree_level3.png in Resources */,
+				C912F3E41AEABE6C00700EDD /* coins.png in Resources */,
 				8CFDCE40198635BD00DC7822 /* portalIn.png in Resources */,
 				22D21FE61988570500D8341D /* quit.png in Resources */,
 				C9D1D27F1ACA0D6400AFC947 /* main_bg_copy.png in Resources */,
 				E355822C1986158300FE8F22 /* s2_8.png in Resources */,
 				E35582191986158300FE8F22 /* Icon-72@2x.png in Resources */,
 				E355824E1986158300FE8F22 /* whirlpool.png in Resources */,
+				C912F3DE1AEABDEE00700EDD /* player_2.plist in Resources */,
 				ED82CC2B1988472400348114 /* boost_bonus.png in Resources */,
 				34D404941A9E39F0005F9B56 /* backgroundGameSceneFinalThree.png in Resources */,
 				E35582291986158300FE8F22 /* s2_5.png in Resources */,
 				E35582411986158300FE8F22 /* pd_tilemap4.png in Resources */,
 				E35582211986158300FE8F22 /* Icon-Spotlight-iOS7@2x.png in Resources */,
-				C99BCCA71AE5B45B003F9F3B /* missile_3.plist in Resources */,
 				E35582301986158300FE8F22 /* coin.png in Resources */,
 				3F7A0A6F1A9EDA5400E0D92C /* fly_ground.png in Resources */,
 				E35582491986158300FE8F22 /* sound.png in Resources */,
 				8C27C346196E6DAD000B5772 /* player_1.png in Resources */,
-				C99BCCA31AE5A6A2003F9F3B /* coins.png in Resources */,
 				E355824C1986158300FE8F22 /* warning.png in Resources */,
 				E35582321986158300FE8F22 /* gear.png in Resources */,
 				E35582271986158300FE8F22 /* s2_3.png in Resources */,
 				220DFE22197E1BE700271A0E /* missile_2.plist in Resources */,
+				C912F3D41AEABDEE00700EDD /* easy.png in Resources */,
 				E35582511986158300FE8F22 /* middleSeperator1.png in Resources */,
-				C9274C881AAAC08900F11FC4 /* Rush.png in Resources */,
+				C9274C881AAAC08900F11FC4 /* rush_Button.png in Resources */,
 				E355823B1986158300FE8F22 /* laserVertical.png in Resources */,
 				8CFDCE41198635BD00DC7822 /* portalOut.plist in Resources */,
 				220DFE29197E1BE700271A0E /* player_9.png in Resources */,
-				E34D46181988473300AAF73E /* bggameover.png in Resources */,
 				E35582391986158300FE8F22 /* laserHorizontal.png in Resources */,
+				C912F3D61AEABDEE00700EDD /* fall.png in Resources */,
 				8CFDCE3F198635BD00DC7822 /* portalIn.plist in Resources */,
+				A15A25951AE5B484003F76B8 /* missile_3.png in Resources */,
 				E35582311986158300FE8F22 /* flashline.png in Resources */,
 				E355821D1986158300FE8F22 /* Icon-Small-50.png in Resources */,
 				8CE84F961957D17400716C96 /* LICENSE_Chipmunk.txt in Resources */,
@@ -1998,18 +2062,25 @@
 				E355822B1986158300FE8F22 /* s2_7.png in Resources */,
 				ED82CC2919883FB900348114 /* Record_Flag.png in Resources */,
 				E3280BC0198459490076DBC2 /* player_4.png in Resources */,
-				3F60ED711AA8226F00E66B51 /* jump.png in Resources */,
+				3F60ED711AA8226F00E66B51 /* jump_button.png in Resources */,
 				E35582501986158300FE8F22 /* ground_PortalScene.png in Resources */,
+				A1839D071AE85CF100B0367D /* title3.png in Resources */,
 				A1C775A61AE2D9F500E1A82C /* star_level2.png in Resources */,
+				A1839D031AE854CC00B0367D /* title.png in Resources */,
+				C912F3DB1AEABDEE00700EDD /* medium.png in Resources */,
 				A1C775A41AE2D9AA00E1A82C /* backgroundGameSceneFinalThree_level2.png in Resources */,
 				220DFE27197E1BE700271A0E /* player_5.png in Resources */,
 				8CE84F281957D17400716C96 /* LICENSE_CCBReader.txt in Resources */,
-				C9274C851AAAAE1A00F11FC4 /* player_2.plist in Resources */,
 				E35582531986158300FE8F22 /* topBackground_PortalScene.png in Resources */,
 				220DFE21197E1BE700271A0E /* missile_1.png in Resources */,
 				E35582281986158300FE8F22 /* s2_4.png in Resources */,
+				A15A25941AE5B484003F76B8 /* missile_3.plist in Resources */,
 				E355822F1986158300FE8F22 /* buttonUp.png in Resources */,
 				22D21FDD19876DC500D8341D /* coin_2.plist in Resources */,
+				C912F3D51AEABDEE00700EDD /* fall.plist in Resources */,
+				C912F3D81AEABDEE00700EDD /* jump.png in Resources */,
+				C912F3DD1AEABDEE00700EDD /* missile_4.png in Resources */,
+				C912F3D31AEABDEE00700EDD /* bggameover.png in Resources */,
 				E367FC9E19880EA000A31F82 /* main_bg.png in Resources */,
 				E35582171986158300FE8F22 /* Icon-120.png in Resources */,
 				E355822E1986158300FE8F22 /* buttonDown.png in Resources */,
@@ -2020,23 +2091,28 @@
 				A1C775AA1AE2DA0000E1A82C /* laserHorizontal1.png in Resources */,
 				22D21FD519875A9100D8341D /* normalShieldIcon.png in Resources */,
 				E355824D1986158300FE8F22 /* warning_missile_normal_2.png in Resources */,
-				C99BCCA51AE5B3FD003F9F3B /* missile_3.png in Resources */,
 				E35582151986158300FE8F22 /* Default-Landscape~ipad 2.png in Resources */,
+				C912F3D91AEABDEE00700EDD /* laserHorizontal4.plist in Resources */,
 				8CE84E981957D17300716C96 /* LICENSE_cocos2d.txt in Resources */,
 				E355822D1986158300FE8F22 /* s2_9.png in Resources */,
+				C912F3F21AEAC56B00700EDD /* rush.plist in Resources */,
 				8CE84D631957D17200716C96 /* iTunesArtwork in Resources */,
 				E35582241986158300FE8F22 /* s2_1.png in Resources */,
 				220DFE23197E1BE700271A0E /* missile_2.png in Resources */,
+				C912F3DC1AEABDEE00700EDD /* missile_4.plist in Resources */,
 				3F7A0A751A9EF0B300E0D92C /* Default@2x.png in Resources */,
+				C912F3DF1AEABDEE00700EDD /* player_2.png in Resources */,
 				220DFE26197E1BE700271A0E /* player_5.plist in Resources */,
 				E35582521986158300FE8F22 /* middleSeperator2.png in Resources */,
 				22D21FDC19876DC500D8341D /* coin_1.png in Resources */,
 				22D21FE51988570500D8341D /* menu.png in Resources */,
+				C912F3E71AEABEAD00700EDD /* hard.png in Resources */,
 				ED63634D19882A9200A89419 /* robot_fall.png in Resources */,
 				E35582161986158300FE8F22 /* Default@2x 2.png in Resources */,
 				8C27C345196E6DAD000B5772 /* player_1.plist in Resources */,
 				E355821E1986158300FE8F22 /* Icon-Small.png in Resources */,
 				22D21FEC19885B4300D8341D /* start.png in Resources */,
+				A1839D011AE854BB00B0367D /* bar.png in Resources */,
 				E35582261986158300FE8F22 /* s2_2.png in Resources */,
 				22D21FE81988570500D8341D /* resume.png in Resources */,
 				22D21FE71988570500D8341D /* restart.png in Resources */,

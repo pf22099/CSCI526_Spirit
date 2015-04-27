@@ -4,122 +4,135 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>player_2-1.png</key>
+            <key>rush-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{28,47}}</string>
+                <string>{{2,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
             </dict>
-            <key>player_2-2.png</key>
+            <key>rush-10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,2},{28,47}}</string>
+                <string>{{36,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
             </dict>
-            <key>player_2-3.png</key>
+            <key>rush-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,51},{28,47}}</string>
+                <string>{{36,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
             </dict>
-            <key>player_2-4.png</key>
+            <key>rush-3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,51},{28,47}}</string>
+                <string>{{36,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
             </dict>
-            <key>player_2-5.png</key>
+            <key>rush-4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,100},{28,47}}</string>
+                <string>{{36,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
             </dict>
-            <key>player_2-6.png</key>
+            <key>rush-5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,100},{28,47}}</string>
+                <string>{{36,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
             </dict>
-            <key>player_2-7.png</key>
+            <key>rush-6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,149},{28,47}}</string>
+                <string>{{36,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
             </dict>
-            <key>player_2-8.png</key>
+            <key>rush-7.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,149},{28,47}}</string>
+                <string>{{36,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
             </dict>
-            <key>player_2-9.png</key>
+            <key>rush-8.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,198},{28,47}}</string>
+                <string>{{36,2},{32,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{28,47}}</string>
+                <string>{{0,0},{32,51}}</string>
                 <key>sourceSize</key>
-                <string>{28,47}</string>
+                <string>{32,51}</string>
+            </dict>
+            <key>rush-9.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{36,2},{32,51}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{32,51}}</string>
+                <key>sourceSize</key>
+                <string>{32,51}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -127,13 +140,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>player_2.png</string>
+            <string>rush.png</string>
             <key>size</key>
-            <string>{62,247}</string>
+            <string>{70,55}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:181e6f93b580d7124b6a1ac2876b66d4:6624924ebbecbf0ce34bd23ee4391a2b:d3c7d5a1b36bae659f2f42d7f192aab1$</string>
+            <string>$TexturePacker:SmartUpdate:536220dbd89e5a811a09fd6dfc907938:047bfc2a1665200dd36c9b6a4f5d5a22:02f8d06365eccb8c1b07649298be2897$</string>
             <key>textureFileName</key>
-            <string>player_2.png</string>
+            <string>rush.png</string>
         </dict>
     </dict>
 </plist>

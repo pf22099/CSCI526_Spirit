@@ -111,7 +111,7 @@
     else if(level==2){
         star = [CCSprite spriteWithImageNamed:@"star_level2.png"];
     }else{
-        star = [CCSprite spriteWithImageNamed:@"star_level2.png"];
+        star = [CCSprite spriteWithImageNamed:@"star_level3.png"];
     }
     star.anchorPoint = ccp(0, 0);
     [star setPhysicsBody:[CCPhysicsBody bodyWithRect:star.boundingBox cornerRadius:0]];

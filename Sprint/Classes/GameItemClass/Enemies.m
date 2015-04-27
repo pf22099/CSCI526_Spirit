@@ -35,8 +35,8 @@
                 [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"missile_3.plist"];
                 initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"missile_3-1.png"];
             }else{
-                [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"missile_3.plist"];
-                initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"missile_3-1.png"];
+                [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"missile_4.plist"];
+                initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"missile_4-1.png"];
             }
             missile = [CCSprite spriteWithSpriteFrame:initialSpriteFrame];
             if (missile) {
@@ -50,7 +50,8 @@
                         [animationFramesRun addObject:
                          [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"missile_3-%d.png", i]]];
                     }else{
-                        
+                        [animationFramesRun addObject:
+                         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"missile_4-%d.png", i]]];
                     }
                     
                 }
@@ -121,6 +122,8 @@
         initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"laserHorizontal1-1.png"];
     }else{
         
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"laserHorizontal4.plist"];
+        initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"laserHorizontal4-1.png"];
     }
 //    CCSpriteFrame *initialSpriteFrame = [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"laserHorizontal-1.png"];
     
@@ -137,7 +140,8 @@
                 [animationFramesRun addObject:
                  [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"laserHorizontal1-%d.png", i]]];
             }else{
-                
+                [animationFramesRun addObject:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName: [NSString stringWithFormat:@"laserHorizontal4-%d.png", i]]];
             }
             
         }

@@ -68,6 +68,7 @@ static int level;
     
     int _sceneCounter;
     int _targetScene;
+    int _pressedLocation;
     
     float _scrollSpeed;
     float _speedBeforeBoost;
@@ -171,6 +172,7 @@ static int level;
     _portalTime = 0;
     _sceneCounter = 0;
     _goldenShieldLevel = 0;
+    _pressedLocation=-1;
     
     _isShieldOn = NO;
     _isBoostOn = NO;
@@ -768,7 +770,11 @@ static int level;
         //
         //        [_userDefault setObject:[NSString stringWithFormat:@"%d", _distance] forKey:@"distance"];
         //        [_userDefault synchronize];
-        
+        //add
+        CGFloat x = robot.position.x;
+        CGFloat y = robot.position.y;
+        [_robot removeFromParentAndCleanup:YES];
+        [self addRobotdie: x andNb: y];
         [self died];
         return YES;
     }
@@ -821,24 +827,25 @@ static int level;
 {
     _robot.physicsBody.friction=0.0f;
     
-    [self unschedule:@selector(applyForceWhenTouched)];
+
     if( _isGameOver )
     return YES;
     
     if (robot.position.y<ground.position.y || _isBoostOn) {
         return NO;
     }
+    [self unschedule:@selector(applyForceWhenTouched)];
     touches=0;
     CGFloat x = _robot.position.x;
     CGFloat y = _robot.position.y;
     [_robot removeFromParentAndCleanup:YES];
     [self addRobotBackToRun:x andNb:y];
-    if(level==2)
+    if(level==3)
     {
         if(_distance>=200)
         {
-        _thisGround=ground;
-        [self scheduleOnce:@selector(removeGround) delay:0.7f];
+            _thisGround=ground;
+            [self scheduleOnce:@selector(removeGround) delay:0.6f];
         }
     }
     return YES;
@@ -881,7 +888,6 @@ static int level;
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair robotCollision:(CCNode *)robot boostCollision:(CCNode *)boost{
     if (!_isBoostOn) {
-        [self unschedule:@selector(applyForceWhenTouched)];
         [boost removeFromParentAndCleanup:YES];
         [self boost];
     }
@@ -936,9 +942,9 @@ static int level;
     return NO;
 }
 //
-//-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair superRobotCollision:(CCNode *)robot missileCollision:(CCNode *)missile {
-//    return NO;
-//}
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair superRobotCollision:(CCNode *)robot missileCollision:(CCNode *)missile {
+    return NO;
+}
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair superRobotCollision:(CCNode *)robot portalCollision:(CCNode *)portal {
     
@@ -967,11 +973,6 @@ static int level;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair superRobotCollision:(CCNode *)robot boostCollision:(CCNode *)boost{
-    if (!_isBoostOn) {
-        [self boost];
-    }
-    [self unschedule:@selector(applyForceWhenTouched)];
-    [boost removeFromParentAndCleanup:YES];
     return NO;
 }
 
@@ -1060,10 +1061,20 @@ static int level;
     return;
     if (!_isGameOver) {
         if (touch.locationInWorld.x>300.0f && _isRushOn==NO) {
+            _pressedLocation=2;
             if(_coinProgressBar.percentage>=10.0f)
             {
                 _coinProgressBar.percentage-=10.0f;
                 _isCoinProgressFull = NO;
+                
+                CGFloat px = _robot.position.x;
+                CGFloat py = _robot.position.y;
+                [_robot removeFromParentAndCleanup:YES];
+                _robot = [Robot createCharacter:CHARACTER_ROBOT_RUSH];
+                _robot.physicsBody.allowsRotation=false;
+                _robot.position = ccp(px, py);
+                [_physicsWorld addChild:_robot z:1];
+                
                 _robot.physicsBody.affectedByGravity=NO;
                 _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
                 [self rush];
@@ -1075,11 +1086,28 @@ static int level;
         else if(touch.locationInWorld.x<=300.0f)
         {
             touches++;
-            if  (touches==2)
-            {
-                _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
-                [_robot.physicsBody applyForce:ccp(0,15.0f)];
-                return;
+            _pressedLocation=1;
+            if(touches<=2){
+                CGFloat px = _robot.position.x;
+                CGFloat py = _robot.position.y;
+                [_robot removeFromParentAndCleanup:YES];
+                _robot = [Robot createCharacter:CHARACTER_ROBOT_JUMP];
+                _robot.physicsBody.allowsRotation=false;
+                _robot.position = ccp(px, py);
+                [_physicsWorld addChild:_robot z:1];
+                
+                if (_isShieldOn) {
+                    [self getShield];
+                }
+                else if (_goldenShieldLevel) {
+                    [self getGoldenShield];
+                }
+                
+                if(touches==2){
+                    _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
+                    [_robot.physicsBody applyForce:ccp(0,15.0f)];
+                    return;
+                }
             }
             else if (touches>=3)
             {
@@ -1104,24 +1132,6 @@ static int level;
                 return;
             }
             
-            
-            //        CGFloat x = self.contentSize.width/4;
-            //        CGFloat y = _robot.position.y;
-            //        if(!_isBoostOn){
-            //            [_robot removeFromParentAndCleanup:YES];
-            //            [self addRobotJump:x andNb:y];
-            //        }else{
-            //            [_robot removeFromParentAndCleanup:YES];
-            //
-            //            [self addRobotBoost:x andNb:y];
-            //        }
-            //
-            //        if(_scrollSpeed < 6) {
-            //            [_robot.physicsBody applyImpulse:ccp(0,0.05f)];
-            //        }
-            //        else {
-            //            [_robot.physicsBody applyImpulse:ccp(0,0.1f)];
-            //        }
             [_robot.physicsBody applyForce:ccp(0,14.0f)];
             _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
         }
@@ -1138,6 +1148,18 @@ static int level;
         [self unschedule:@selector(applyForceWhenTouched)];
         
     }
+    if(_pressedLocation==1 && !_isBoostOn){
+        CGFloat px = _robot.position.x;
+        CGFloat py = _robot.position.y;
+        _robot.physicsBody.velocity=ccp(0.0f, 0.0f);
+        
+        [_robot removeFromParentAndCleanup:YES];
+        _robot = [Robot createCharacter:CHARACTER_ROBOT_FALL];
+        _robot.position = ccp(px, py);
+        _robot.physicsBody.collisionGroup = @"robotGroup";
+        _robot.physicsBody.collisionType = @"robotCollision";
+        [_physicsWorld addChild:_robot z:1];
+    }
 }
 
 -(void)touchCancelled:(UITouch *)touch withEvent:(UIEvent *)event
@@ -1147,7 +1169,6 @@ static int level;
 
 -(void)whenTouchEndedORCancelled
 {
-    [self unschedule:@selector(applyForceWhenTouched)];
     
     if(!_isGameOver) {
         [_robot removeFromParentAndCleanup:YES];
@@ -1157,9 +1178,7 @@ static int level;
             CGFloat y = _robot.position.y;
             
             if(_isBoostOn){
-                [_robot removeFromParentAndCleanup:YES];
-                
-                [self addRobotBoost:x andNb:y];
+                ;
                 
             }
             else{
@@ -1167,26 +1186,12 @@ static int level;
                 [self addRobotFall:x andNb:y];
             }
             
-            
-            if(_scrollSpeed < 6) {
-                [_robot.physicsBody applyImpulse:ccp(0,0.05f)];
-            }
-            else {
-                [_robot.physicsBody applyImpulse:ccp(0,0.1f)];
-            }
         }
         
     }
     else {
         self.userInteractionEnabled = NO;
     }
-    float forceDownward;
-    forceDownward = -1.0f - _scrollSpeed * 0.8f;
-    [_robot.physicsBody applyForce:ccp(0, forceDownward)];
-    if (forceDownward < -5.0f) {
-        [_robot.physicsBody applyForce:ccp(0,5.0f)];
-    }
-    
 }
 
 //-(void)addRobotJump:(CGFloat) px andNb:(CGFloat) py{
@@ -1279,7 +1284,7 @@ static int level;
     //    buttonJump.name = @"buttonJump";
     ////    [buttonJump setTarget:self selector:@selector(onJumpClicked:)];
     //    [self addChild:buttonJump z:9];
-    CCSprite *button=[CCSprite spriteWithImageNamed:@"jump.png"];
+    CCSprite *button=[CCSprite spriteWithImageNamed:@"jump_button.png"];
     button.positionType=CCPositionTypeNormalized;
     button.position=ccp(0.1, 0.15);
     button.scaleX=0.7;
@@ -1289,7 +1294,7 @@ static int level;
 
 -(void) addButtonRush
 {
-    CCSprite *button=[CCSprite spriteWithImageNamed:@"Rush.png"];
+    CCSprite *button=[CCSprite spriteWithImageNamed:@"rush_Button.png"];
     button.positionType=CCPositionTypeNormalized;
     button.position=ccp(0.9, 0.15);
     button.scaleX=0.7;
@@ -1499,7 +1504,7 @@ static int level;
     [_robot removeFromParentAndCleanup:YES];
     [self addRobotBoost:x andNb:y];
     
-    //[self getBoostShield];
+    //[self getBoosatShield];
 }
 
 -(void)rush {
@@ -1639,6 +1644,9 @@ static int level;
     
     [self updateRandomGenerator];
     
+    if(_isBoostOn)
+        self.userInteractionEnabled = NO;
+    
     if (_isBoostOn) {
         _robot.physicsBody.collisionType = @"superRobotCollision";
     }
@@ -1689,6 +1697,10 @@ static int level;
         
         _rushTime++;
         if(_rushTime == 2) {
+            CGFloat px = _robot.position.x;
+            CGFloat py = _robot.position.y;
+            [_robot removeFromParentAndCleanup:YES];
+            [self addRobotBackToRun: px andNb:py];
             _isRushOn = NO;
             _scrollSpeed = _speedBeforeRush;
             _robot.physicsBody.affectedByGravity=true;
